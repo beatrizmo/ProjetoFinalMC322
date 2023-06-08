@@ -6,13 +6,11 @@ public class Filme {
     private String titulo;
     private String sinopse;
     private String duracao;
-    private List<String> horariosExibicao;
     
-    public Filme(String titulo, String sinopse, String duracao, List<String> horariosExibicao) {
+    public Filme(String titulo, String sinopse, String duracao) {
         this.titulo = titulo;
         this.sinopse = sinopse;
         this.duracao = duracao;
-        this.horariosExibicao = horariosExibicao;
     }
     
     // Getters e Setters
@@ -39,13 +37,12 @@ public class Filme {
     public void setDuracao(String duracao) {
         this.duracao = duracao;
     }
+
+	@Override
+	public String toString() {
+		return "Titulo:" + titulo + "\nSinopse:" + sinopse + "\nDuracao:" + duracao;
+	}
     
-    public List<String> getHorariosExibicao() {
-        return horariosExibicao;
-    }
     
-    public void setHorariosExibicao(List<String> horariosExibicao) {
-        this.horariosExibicao = horariosExibicao;
-    }
 }
 

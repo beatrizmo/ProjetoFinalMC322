@@ -4,9 +4,15 @@ public class Assento {
     private String posAssento;
     private String tipoAssento;
     
-    public Assento(String posAssento, String tipoAssento) {
-        this.posAssento = posAssento;
+    public Assento(int linha, int coluna, String tipoAssento) {
+        this.posAssento = FormatarPosAssento(linha, coluna);
         this.tipoAssento = tipoAssento;
+    }
+    
+    //Formatar a posAssento
+    public String FormatarPosAssento(int linha, int coluna) {
+    	char colunaAlfabetica = (char) ('A' + coluna - 1);
+        return colunaAlfabetica + "" + linha;
     }
     
     // Getters e Setters
@@ -25,4 +31,11 @@ public class Assento {
     public void setTipoAssento(String tipoAssento) {
         this.tipoAssento = tipoAssento;
     }
+
+	@Override
+	public String toString() {
+		return posAssento + "(" + tipoAssento + ")";
+	}
+    
+    
 }

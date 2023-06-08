@@ -9,13 +9,16 @@ public class IngressoMeia extends Ingresso {
     }
     
     @Override
+  
+    // Metodo que calcula o preço do ingresso levando em conta a porcentagemDesconto e o tipo de assento
     public double calcularPreco() {
-    	//calcula o preço do ingresso levando em conta a porcentagemDesconto
-    	// e o tipo do assento
+ 
     	double base = 1;
+    	
 		if (this.getAssento().getTipoAssento().equals("VIP")) {
 			base = 1.2;
 		}
+		
 		double precoFinal = base*10*porcentagemDesconto;
 		this.setPreco(precoFinal);
 		return precoFinal;

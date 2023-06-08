@@ -25,6 +25,7 @@ public class Sessao{
 		this.horario = horario;
 	}
 
+	// Getters e Setters
 	public String getHorario() {
 		return horario;
 	}
@@ -41,7 +42,6 @@ public class Sessao{
 		this.data = data;
 	}
 
-	// Getters e Setters
 	public Filme getFilme() {
 		return filme;
 	}

@@ -14,6 +14,7 @@ public class Sessao{
 		String tipoAssento = "Normal";
 		for (int i=1; i<=colunas; i++) {
 			for (int j=1;j<=linhas;j++) {
+				//fileiras da parte de tras (quarta em diante) sao reservada para VIPS
 				if (i>3) { 
 					tipoAssento = "VIP"; 
 				}
@@ -59,8 +60,14 @@ public class Sessao{
 	}
 
 	public boolean verificarAssento(String posAssento) {
-		//devera retornar false se assento estiver ocupado e true caso contrario
-		return false;
+		// Verificamos na lista de assentos se o assento informado esta ocupado
+		for (Assento assento : listaAssentos) {
+	        if (assento.getPosAssento().equals(posAssento)) {
+	            return false; //retorna falso caso esteja ocupado
+	        }
+	    }
+		//Caso o assento informado nao esteja na listaAssentos ele esta livre 
+		return true;
 	}
 
 	@Override

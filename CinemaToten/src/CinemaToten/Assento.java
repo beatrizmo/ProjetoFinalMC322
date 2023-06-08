@@ -9,7 +9,7 @@ public class Assento {
         this.tipoAssento = tipoAssento;
     }
     
-    //Formatar a posAssento
+    //Formatar a posição do assento
     public String FormatarPosAssento(int linha, int coluna) {
     	char colunaAlfabetica = (char) ('A' + coluna - 1);
         return colunaAlfabetica + "" + linha;

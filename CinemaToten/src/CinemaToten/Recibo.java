@@ -66,33 +66,33 @@ public class Recibo {
         int width = 300;
         int height = 900;
 
-        // Create a BufferedImage object with the specified width and height
+        //Crie um objeto BufferedImage com a largura e altura especificadas
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
-        // Get the Graphics2D object from the image
+        // Obtenha o objeto Graphics2D a partir da imagemß
         Graphics2D g2d = image.createGraphics();
 
-        // Set the background color
+        //Define a cor de fundo do reciboß
         g2d.setColor(Color.WHITE);
         g2d.fillRect(0, 0, width, height);
 
-        // Set the text color and font
+        // Define a fonte e sua corß
         g2d.setColor(Color.BLACK);
         g2d.setFont(new Font("TimesRoman", Font.PLAIN, 10));
 
-        // Draw the centered text on the image
+        // Desenha o texto centrado na imagem
         g2d.drawString(text, 20, 20);
 
-        // Dispose the Graphics2D object
+        // Descarta o objeto Graphics 2Dß
         g2d.dispose();
 
         try {
-            // Save the image to a file
+            // Salve a imagem em um arquivo do tipo pngß
             File outputFile = new File("output.png");
             ImageIO.write(image, "png", outputFile);
-            System.out.println("Image saved successfully.");
+            System.out.println("Imagem salva com sucesso.");
         } catch (Exception e) {
-            System.out.println("Error saving image: " + e.getMessage());
+            System.out.println("Erro ao salvar imagem: " + e.getMessage());
         }
     }
 }

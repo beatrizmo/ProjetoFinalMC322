@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
+//Classe rservar que implementa metodos declarados na interface I_Arquivo
 public class Reservar implements I_Arquivo {
 	private final String NOME_ARQUIVO;
 	
@@ -28,6 +29,7 @@ public class Reservar implements I_Arquivo {
 	@Override
 	public boolean gravarArquivo(String conteudo) throws IOException {
 		try {
+			//salva o conteudo em um arquivo de nome especificado previamente
             FileWriter escritor = new FileWriter(NOME_ARQUIVO, true);
             escritor.write(conteudo + "\n");
             escritor.close();
@@ -41,6 +43,7 @@ public class Reservar implements I_Arquivo {
 	@Override
 	public String lerArquivo() throws IOException {
 		try {
+			//Busca um arquivo com nome especificado e le seu conteudo
 			return new String(Files.readAllBytes(Paths.get(NOME_ARQUIVO)));
 		} catch (IOException e) {
 			e.printStackTrace();

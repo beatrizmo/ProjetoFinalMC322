@@ -1,5 +1,8 @@
 package CinemaToten;
 
+//Classe abstrata com os metodos que deverao ser implentados pelas classes filhas
+//IngressoInteira e IngressoMeia
+
 public abstract class Ingresso {
     private double preco;
     private Assento assento;

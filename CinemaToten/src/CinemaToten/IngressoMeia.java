@@ -15,10 +15,13 @@ public class IngressoMeia extends Ingresso {
  
     	double base = 1;
     	
+    	//verifica se o assento selecionado é do tipo VIP, se for, usa 1.2 como valor de base
 		if (this.getAssento().getTipoAssento().equals("VIP")) {
 			base = 1.2;
 		}
 		
+		//atualiza o valor da variavel preco final como base no tipo de assento escolhido
+		// e com base no desconto dado a quem paga meia entrada 
 		double precoFinal = base*10*porcentagemDesconto;
 		this.setPreco(precoFinal);
 		return precoFinal;

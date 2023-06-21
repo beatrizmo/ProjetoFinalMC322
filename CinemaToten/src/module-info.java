@@ -6,4 +6,5 @@
  *
  */
 module CinemaToten {
+	requires java.desktop;
 }

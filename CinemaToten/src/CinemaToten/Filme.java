@@ -1,7 +1,5 @@
 package CinemaToten;
 
-import java.util.List;
-
 public class Filme {
     private String titulo;
     private String sinopse;

@@ -3,7 +3,6 @@ package CinemaToten;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 
 //Classe rservar que implementa metodos declarados na interface I_Arquivo
 public class Reservar implements I_Arquivo {
@@ -13,18 +12,34 @@ public class Reservar implements I_Arquivo {
 		this.NOME_ARQUIVO = NOME_ARQUIVO;
 	}
 	
-	public boolean reservarAssento(String posAssento, Sessao sessao) { //true se disponivel
+	public boolean reservarAssento(String posAssento, Sessao sessao) throws IOException{ //true se disponivel
 		//verificar se um assento esta ocupado quando for selecionado no mapa de assentos
 		
-		throw new java.lang.UnsupportedOperationException("Not supported yet.");
+		String chave = sessao.getFilme().getTitulo() + "," + sessao.getData() + "," + sessao.getHorario() + "," + posAssento;
+		if (verificarDadoExistente(chave)) { //assento indisponível
+			return false;
+		}
+		return true; //assento disponível
 	}
 	
-	public boolean comprarAssento(String posAssento, Sessao sessao) { //true se comprado
+	public void comprarAssento(String posAssento, Sessao sessao) throws Exception{ //true se comprado
 		//verificar se um assento esta ocupado quando o usuario for comprar
 		//throws exception se tiver acabado de ser comprado por alguem!
 		//gravar no arquivo se estiver disponivel
-		throw new java.lang.UnsupportedOperationException("Not supported yet.");
+		String chave = sessao.getFilme().getTitulo() + "," + sessao.getData() + "," + sessao.getHorario() + "," + posAssento;
+		if (verificarDadoExistente(chave)) {
+            throw new Exception("O assento foi comprado por outro usuário.");
+        }
+
+        // Adiciona o dado ao arquivo CSV
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(NOME_ARQUIVO, true))) {
+            this.gravarArquivo(chave);
+        }
 	}
+	
+	public boolean verificarDadoExistente(String dado) throws IOException {
+		 return Files.lines(Paths.get(NOME_ARQUIVO)).anyMatch(line -> line.equals(dado));
+    }
 	
 	@Override
 	public boolean gravarArquivo(String conteudo) throws IOException {

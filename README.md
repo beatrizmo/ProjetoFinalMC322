@@ -8,14 +8,19 @@ Projeto Final da disciplina de MC322 2023S01
 
 # Cinema Totem
 
-O Cinema Totem é um sistema de totem de compra de bilhetes de cinema que permite aos usuários comprar ingressos para filmes de forma conveniente. O projeto foi desenvolvido utilizando os princípios da POO e visa proporcionar aos clientes uma experiência intuitiva e fácil. 
+O Cinema Totem é um sistema de totem de compra de bilhetes de cinema que permite aos usuários comprar ingressos para filmes de forma conveniente. O projeto foi desenvolvido utilizando os princípios da POO e visa proporcionar aos clientes uma experiência intuitiva e fácil. Em nosso projeto, já na tela inicial é possivel visualizar os filmes disponiveis em cartaz, assim como os dias e os horários de exibição. Para cada filme temos as informações de título, sinopse e a duração. O cliente no momento da compra de ingresso após selecionar o filme, a data e horário que quer assistir tera a opção de selecionar a compra do ingresso no valor inteiro, ou como meia entrada. 
+
+
+No desenvolvimento deste projeto foi explorado conceito de relacionamentos. Além do conceito de classe abstrata, onde a classe Ingresso foi definida como uma classe abstrata que possui duas classes filhas: Ingresso Meia e Ingresso Inteira. A interface I_Arquivo também foi implementada para definir os metódos gravarArquivo e lerArquivo a serem implementados. 
+
+Os diagramas UML contendo mais detalhes da implementação pode ser visto abaixo:
 
 ## Funcionalidades
 
 - Visualização de filmes em cartaz e suas respectivas informações como titulo, sinopse, duração e horário de exibição. 
 - Seleção de assentos disponíveis nas modalidades VIP ou Comum
 - Compra de ingressos nas modalidades inteira ou meia
-- Emissão de recibos
+- Emissão de recibos em formato de imagem.
 
 
 ## Configuração do Projeto

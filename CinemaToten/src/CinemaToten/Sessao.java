@@ -11,14 +11,9 @@ public class Sessao{
 	public Sessao(Filme filme, int colunas, int linhas, String horario, String data) {
 		this.filme = filme;
 		this.listaAssentos = new ArrayList<Assento>();
-		String tipoAssento = "Normal";
 		for (int i=1; i<=colunas; i++) {
 			for (int j=1;j<=linhas;j++) {
-				//fileiras da parte de tras (quarta em diante) sao reservada para VIPS
-				if (i>3) { 
-					tipoAssento = "VIP"; 
-				}
-				Assento novoAssento = new Assento(j,i,tipoAssento);
+				Assento novoAssento = new Assento(j,i);
 				listaAssentos.add(novoAssento);
 			}
 		}
@@ -59,19 +54,10 @@ public class Sessao{
 		this.listaAssentos = listaAssentos;
 	}
 
-	public boolean verificarAssento(String posAssento) {
-		// Verificamos na lista de assentos se o assento informado esta ocupado
-		for (Assento assento : listaAssentos) {
-	        if (assento.getPosAssento().equals(posAssento)) {
-	            return false; //retorna falso caso esteja ocupado
-	        }
-	    }
-		//Caso o assento informado nao esteja na listaAssentos ele esta livre 
-		return true;
-	}
-
 	@Override
 	public String toString() {
-		return "Filme:" + filme + "\nLista de Assentos:" + listaAssentos + "\nHorario:" + horario + "\nData:" + data;
+		return "Filme:" + filme.getTitulo() + 
+				//"\nLista de Assentos:" + listaAssentos + 
+				" Horario:" + horario + " Data:" + data + "\n";
 	}
 }

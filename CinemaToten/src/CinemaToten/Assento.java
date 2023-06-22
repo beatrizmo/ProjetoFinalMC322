@@ -2,11 +2,9 @@ package CinemaToten;
 
 public class Assento {
     private String posAssento;
-    private String tipoAssento;
     
-    public Assento(int linha, int coluna, String tipoAssento) {
+    public Assento(int linha, int coluna) {
         this.posAssento = FormatarPosAssento(linha, coluna);
-        this.tipoAssento = tipoAssento;
     }
     
     //Formatar a posição do assento
@@ -23,18 +21,10 @@ public class Assento {
     public void setPosAssento(String posAssento) {
         this.posAssento = posAssento;
     }
-    
-    public String getTipoAssento() {
-        return tipoAssento;
-    }
-    
-    public void setTipoAssento(String tipoAssento) {
-        this.tipoAssento = tipoAssento;
-    }
 
 	@Override
 	public String toString() {
-		return posAssento + "(" + tipoAssento + ")";
+		return posAssento;
 	}
     
     

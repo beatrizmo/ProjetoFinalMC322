@@ -16,7 +16,7 @@ public abstract class Ingresso {
     }
     
     // Métodos abstratos
-    public abstract double calcularPreco(); 
+    public abstract void calcularPreco(); 
     
     // Getters e Setters
     public double getPreco() {
@@ -46,5 +46,12 @@ public abstract class Ingresso {
     public String retornarChave() { //chave que será gravada no arquivo .csv
     	return sessao.getFilme().getTitulo() + "," + sessao.getData() + "," + sessao.getHorario() + "," + assento.getPosAssento();
     }
+
+	public String toString() {
+		return "Ingresso [preco=" + preco + ", assento=" + assento + ", nomeCliente=" + nomeCliente + ", sessao="
+				+ sessao + "]";
+	}
+    
+    
 }
 

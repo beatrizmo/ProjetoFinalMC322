@@ -10,21 +10,11 @@ public class IngressoMeia extends Ingresso {
     
     @Override
   
-    // Metodo que calcula o preço do ingresso levando em conta a porcentagemDesconto e o tipo de assento
-    public double calcularPreco() {
- 
-    	double base = 1;
-    	
-    	//verifica se o assento selecionado é do tipo VIP, se for, usa 1.2 como valor de base
-		if (this.getAssento().getTipoAssento().equals("VIP")) {
-			base = 1.2;
-		}
-		
-		//atualiza o valor da variavel preco final como base no tipo de assento escolhido
-		// e com base no desconto dado a quem paga meia entrada 
-		double precoFinal = base*10*porcentagemDesconto;
+    // Metodo que calcula o preço do ingresso levando em conta a porcentagemDesconto
+    public void calcularPreco() {		
+		//atualiza o valor da variavel preco final com base no desconto dado 
+		double precoFinal =20*porcentagemDesconto;
 		this.setPreco(precoFinal);
-		return precoFinal;
     }
     
     // Getter e Setter
@@ -35,4 +25,10 @@ public class IngressoMeia extends Ingresso {
     public void setPorcentagemDesconto(double porcentagemDesconto) {
         this.porcentagemDesconto = porcentagemDesconto;
     }
+    
+	public String toString() {
+		return "IngressoMeia [porcentagemDesconto=" + porcentagemDesconto + "]";
+	}
+    
+    
 }

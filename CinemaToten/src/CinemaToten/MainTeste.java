@@ -38,7 +38,14 @@ public class MainTeste {
 
 		try (CSVReader reader = new CSVReader(new FileReader(caminhoArquivo))) {
 			String[] linha;
+			boolean primeiraLinha = true;
 			while ((linha = reader.readNext()) != null) {
+				
+			 if (primeiraLinha) {
+		            primeiraLinha = false;
+		            continue; // Ignora a primeira linha do arquivo, que contem titulos 
+		        }
+            
 				// Verifica se a linha possui todos os campos necessários
 				if (linha.length >= 3) {
 					String titulo = linha[0];
@@ -48,6 +55,8 @@ public class MainTeste {
 					//Instancia um objeto do tipo filme para cada filme da lista de filmes
 					Filme filme = new Filme(titulo, sinopse, duracao);
 					listaFilmes.add(filme);
+					System.out.println(filme.toString());
+					
 				}
 			}
 		} catch (IOException e) {
@@ -59,8 +68,7 @@ public class MainTeste {
 		listaDatas.add("28/06");
 		listaDatas.add("29/06");
 		listaDatas.add("30/06");
-		//listaDatas.add("01/07");
-		//listaDatas.add("02/07");
+		
 
 
 		//Cria uma lista com os horarios que os filmes serao exibidos
@@ -68,12 +76,12 @@ public class MainTeste {
 		listaHorarios.add("14h");
 		listaHorarios.add("16h");
 		listaHorarios.add("18h");
-		//listaHorarios.add("20h");
+		
 
 		ArrayList<Sessao> listaSessoes = new ArrayList<>();
 
 		//Para cada data da listaDatas e criado uma sessao
-		for (int i=0; i< listaDatas.size(); i++) {
+		for (int i=0; i< listaDatas.size()-	1; i++) {
 			Sessao sessao = new Sessao(listaFilmes.get(i), 6,5, listaHorarios.get(i), listaDatas.get(i));
 			listaSessoes.add(sessao);
 		}

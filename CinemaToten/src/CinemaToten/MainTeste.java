@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
@@ -26,16 +27,107 @@ public class MainTeste {
 		}
 	}
 
+	public static void listarSessoes(ArrayList<Sessao> listaSessoes, Filme filme) {
+		System.out.println("----- Lista de sessões disponíveis -----");
+		for (Sessao sessao : listaSessoes) {
+			System.out.println(listaSessoes.indexOf(sessao)+1 + ". " + sessao.getData() +" - "+ sessao.getHorario());
+		}
+	}
+
+	public static void listarFilmes(ArrayList<Filme> listaFilmes) {
+		System.out.println("----- Lista de filmes disponíveis -----");
+		for (Filme filme : listaFilmes) {
+			System.out.println(listaFilmes.indexOf(filme)+1 + ". " + filme.getTitulo());
+		}
+	}
+
+	public static void escolherSessao(Scanner scanner, ArrayList<Sessao> listaSessoes, Filme filme) {
+		int escolha;
+		ArrayList<Sessao> sessoesDisp = new ArrayList<>();
+		for (Sessao sessao : listaSessoes) {
+			if (sessao.getFilme().equals(filme))
+				sessoesDisp.add(sessao);
+		}
+		do {
+			listarSessoes(sessoesDisp, filme);
+			System.out.println("0. Voltar para menu inicial");
+
+			System.out.print("Escolha uma sessão disponível: ");
+			escolha = scanner.nextInt();
+
+			if (escolha == 0) {
+				return;
+			}
+		} while (escolha < 0 || escolha > sessoesDisp.size());
+
+		// Processar a sessão escolhida
+		System.out.println("Você selecionou a sessão: " + sessoesDisp.get(escolha - 1));
+	}
+
+	public static void escolherFilme(Scanner scanner, ArrayList<Filme> listaFilmes,ArrayList<Sessao> listaSessoes) {
+		int filmeIndex;
+		boolean filmeValido = false;
+		Filme filmeEscolhido = null;
+
+		listarFilmes(listaFilmes);
+		System.out.println("0. Voltar para o menu inicial");
+
+		do {
+			System.out.print("Escolher um filme: ");
+			filmeIndex = scanner.nextInt();
+
+			if (filmeIndex == 0) {
+				return;
+			}
+
+			for (Filme filme : listaFilmes) {
+				if (listaFilmes.indexOf(filme) == filmeIndex-1) {
+					filmeValido = true;
+					filmeEscolhido = filme;
+					break;
+				}
+			}
+
+			if (!filmeValido) {
+				System.out.println("Escolha inválida. Tente novamente.");
+			}
+		} while (!filmeValido);
+
+		escolherSessao(scanner, listaSessoes, filmeEscolhido);
+	}
+
+	public static void mostrarMenu(ArrayList<Sessao> listaSessoes, ArrayList<Filme> listaFilmes) {
+		Scanner scanner = new Scanner(System.in);
+		int escolha;
+
+		do {
+			System.out.println("\n----- Menu -----");
+			System.out.println("1. Escolher um filme");
+			System.out.println("2. Sair");
+
+			System.out.print("Entre com sua escolha: ");
+			escolha = scanner.nextInt();
+
+			switch (escolha) {
+			case 1:
+				escolherFilme(scanner, listaFilmes, listaSessoes);
+				break;
+			case 2:
+				System.out.println("Saindo...");
+				break;
+			default:
+				System.out.println("Escolha invalida. Tente novamente.");
+			}
+		} while (escolha != 2);
+
+		scanner.close();
+	}
 
 	public static void main(String[] args) throws CsvValidationException {
-
-		createCSVFile();		
-
+		createCSVFile();
 		// Instancia lista de filmes
 		ArrayList<Filme> listaFilmes = new ArrayList<>();
-
 		String caminhoArquivo = "ListaFilmes.csv";
-
 		try (CSVReader reader = new CSVReader(new FileReader(caminhoArquivo))) {
 			String[] linha;
 			boolean primeiraLinha = true;
@@ -62,24 +154,17 @@ public class MainTeste {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 		//Cria uma lista com as datas em que os filmes serão exibidos
 		ArrayList<String> listaDatas = new ArrayList<>();
 		listaDatas.add("28/06");
 		listaDatas.add("29/06");
 		listaDatas.add("30/06");
-
-
-
 		//Cria uma lista com os horarios que os filmes serao exibidos
 		ArrayList<String> listaHorarios = new ArrayList<>();
 		listaHorarios.add("14h");
 		listaHorarios.add("16h");
 		listaHorarios.add("18h");
-
-
 		ArrayList<Sessao> listaSessoes = new ArrayList<>();
-
 		//Para cada data da listaDatas é criado uma sessao em cada um dos horarios
 		for (int i=0; i< listaFilmes.size(); i++) {
 			for (int j=0; j < listaDatas.size(); j++) {
@@ -90,118 +175,12 @@ public class MainTeste {
 			}
 		}
 
-		Reservar reserva1 = new Reservar("AssentosReservados.csv");
-		Reservar reserva2 = new Reservar("AssentosReservados.csv");
+		//Reservar reserva = new Reservar("AssentosReservados.csv");
+		mostrarMenu(listaSessoes, listaFilmes);
 
-		//Supondo duas reservas do mesmo lugar
-		Sessao sessao = listaSessoes.get(0);
-		/*
-		String key = sessao.getFilme().getTitulo() + "," + sessao.getData() + "," 
-				+ sessao.getHorario() + "," + sessao.getListaAssentos().get(0).getPosAssento();
-		try {
-			if (reserva1.reservarAssento("A1", sessao)) {
-				System.out.println(key + " reservado");
-			}
-			else {
-				System.out.println("Assento ja reservado, não é possivel selecioná-lo");
-			}
-			if (reserva2.reservarAssento("A1", sessao)) {
-				System.out.println(key + " reservado");
-			}
-			else {
-				System.out.println("Assento ja reservado, não é possivel selecioná-lo");
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
-
-		//Supondo que o usuario 1 compra primeiro que o usuário 2
-		ArrayList<String> assento = new ArrayList<>(); 
-		assento.add("A1");
-		assento.add("A2");
-		assento.add("A3");
-		/*
-		try {
-			reserva1.comprarAssentos(assento, sessao);
-			System.out.println(key + " Assento comprado");
-
-		}
-		catch (Exception e1){
-			System.out.println(e1.getMessage());
-		}
-		try {
-			reserva2.comprarAssentos(assento, sessao);
-			System.out.println(key + " Assento comprado");
-
-		}
-		catch (Exception e2){
-			System.out.println(e2.getMessage());
-		}*/
-
-		//Supondo que alguem seleciona e compra 3 assentos
-		ArrayList<String> assentosSelecionados = new ArrayList<>();
-		for (int i=0; i<3;i++) {
-			String key = sessao.getFilme().getTitulo() + "," + sessao.getData() + "," 
-					+ sessao.getHorario() + "," + assento.get(i);
-			try {
-				if (reserva1.reservarAssento(assento.get(i), sessao)) {
-					System.out.println(key + " foi reservado!");
-					assentosSelecionados.add(assento.get(i));
-				}
-				else {
-					System.out.println("Assento " + assento.get(i) + " ja reservado, não é possivel selecioná-lo");
-				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		if (!assentosSelecionados.isEmpty()) {
-			try {
-				reserva1.comprarAssentos(assento, sessao);
-				System.out.println("Assento(s) comprado(s)");
-	
-			}
-			catch (Exception e1){
-				System.out.println(e1.getMessage());
-			}
-		}
-		else {
-			System.out.println("Voce nao selecionou nenhum assento");
-		}
-
-
-
-
-
-		//Para cada data da listaDatas e criado uma sessao
-		/*
-		for (Sessao sessao : listaSessoes) {
-			String key = sessao.getFilme().getTitulo() + "," + sessao.getData() + "," 
-					+ sessao.getHorario() + "," + sessao.getListaAssentos().get(0).getPosAssento();
-			try {
-				if (reserva.reservarAssento("A1", sessao)) {
-					System.out.println(key + " reservado");
-					try {
-						reserva.comprarAssento("A1", sessao);
-						System.out.println(key + " Assento comprado");
-
-					}
-					catch (Exception e1){
-						System.out.println(e1.getMessage());
-					}
-				}
-				else {
-					System.out.println("Assento ja reservado, não é possivel selecioná-lo");
-				}
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			};
-
-		}
-		 */
 	}
 
+
 }
+
+

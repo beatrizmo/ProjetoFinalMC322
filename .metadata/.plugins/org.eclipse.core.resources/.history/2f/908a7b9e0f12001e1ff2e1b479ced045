@@ -1,0 +1,9 @@
+package CinemaToten;
+
+public enum MenuOperacoes {
+	MENUINICIAL(),
+    CADASTROS(),
+    
+    MenuOperacoes() {
+    }
+}

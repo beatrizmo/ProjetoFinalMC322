@@ -20,6 +20,8 @@ import javax.swing.DefaultComboBoxModel;
 import java.awt.Point;
 import java.awt.CardLayout;
 
+//Classe seleção que cria a tela de seleção de assentos
+
 public class selecao extends JPanel {
 
 	/**

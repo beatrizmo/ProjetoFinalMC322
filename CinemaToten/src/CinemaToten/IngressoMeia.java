@@ -1,5 +1,6 @@
 package CinemaToten;
 
+//Classe filha de Ingresso que cria um ingresso do tipo meia
 public class IngressoMeia extends Ingresso {
     private double porcentagemDesconto;
     

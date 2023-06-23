@@ -1,5 +1,6 @@
 package CinemaToten;
 
+//Classe filha de Ingresso que cria um ingresso do tipo inteira
 public class IngressoInteira extends Ingresso{
 	
 	public IngressoInteira(double preco, Assento assento, String nomeCliente,Sessao sessao) {

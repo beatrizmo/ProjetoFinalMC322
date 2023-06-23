@@ -2,6 +2,8 @@ package CinemaToten;
 
 import java.util.ArrayList;
 
+//Classe Sessao que cria uma sessão com base no filme, lista de assentos, horário e data.
+
 public class Sessao{
 	private Filme filme;
 	private ArrayList<Assento> listaAssentos;

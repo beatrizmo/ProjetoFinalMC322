@@ -1,5 +1,7 @@
 package CinemaToten;
 
+//Classe que cria um filme, com base no título, sinopse e duração.
+
 public class Filme {
     private String titulo;
     private String sinopse;

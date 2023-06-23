@@ -1,5 +1,7 @@
 package CinemaToten;
 
+//Classe que cria um assento, formatando sua posição  com base na linha e coluna, e retorna a posição do assento. 
+
 public class Assento {
     private String posAssento;
     

@@ -5,7 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-//Classe rservar que implementa metodos declarados na interface I_Arquivo
+//Classe reservar que implementa metodos declarados na interface I_Arquivo
 public class Reservar implements I_Arquivo {
 	private final String NOME_ARQUIVO;
 

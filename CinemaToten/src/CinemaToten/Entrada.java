@@ -16,6 +16,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.DefaultComboBoxModel;
 
+//Classe que cria a tela de entrada do programa
+
 public class Entrada extends JPanel {
 
 	/**

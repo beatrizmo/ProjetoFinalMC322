@@ -6,6 +6,9 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import java.util.ArrayList;
 
+//Classe que cria um recibo, com base no preço final, data, hora, título do filme e assentos selecionados.
+// Alem disso possui um método que transforma o recibo em uma imagem
+
 public class Recibo {
     float precoFinal;
     String data, hora, titulo;

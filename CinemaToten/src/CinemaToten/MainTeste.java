@@ -41,7 +41,7 @@ public class MainTeste {
 		}
 	}
 
-	public static void escolherSessao(Scanner scanner, ArrayList<Sessao> listaSessoes, Filme filme) {
+	public static void escolherSessao(Scanner scanner, ArrayList<Sessao> listaSessoes, Filme filme, Reservar reserva) throws IOException {
 		int escolha;
 		ArrayList<Sessao> sessoesDisp = new ArrayList<>();
 		for (Sessao sessao : listaSessoes) {
@@ -62,9 +62,44 @@ public class MainTeste {
 
 		// Processar a sessão escolhida
 		System.out.println("Você selecionou a sessão: " + sessoesDisp.get(escolha - 1));
+		escolherAssentos(scanner, sessoesDisp.get(escolha-1), reserva);
+	}
+	
+	public static void escolherAssentos(Scanner scanner, Sessao sessao, Reservar reserva) throws IOException {
+		System.out.print("Digite o numero de ingressos meia-entrada você quer comprar: ");
+		int qntMeias = scanner.nextInt();
+		System.out.print("Digite o numero de ingressos inteira você quer comprar: ");
+		int qntInteiras = scanner.nextInt();
+		int qntAssentos = qntMeias + qntInteiras;
+	    ArrayList<String> listaAssentos = new ArrayList<>();
+	    scanner.nextLine(); //consumindo a quebra de linha
+	    
+	    for (int i = 0; i < qntAssentos; i++) {
+	        System.out.print("Digite qual o assento nº " + (i + 1) + ": ");
+	        
+	        String numAssento = scanner.nextLine();
+
+	        // Find the selected seat in the available seats list
+	        Assento AssentoSelec = null;
+	        for (Assento assento : sessao.getListaAssentos()) {
+	            if (assento.getPosAssento().equals(numAssento)) {
+	            	AssentoSelec = assento;
+	                break;
+	            }
+	        }
+
+	        if (AssentoSelec != null && reserva.reservarAssento(AssentoSelec.getPosAssento(), sessao)) {
+	            System.out.println("Assento " + numAssento + " foi reservado.");
+	            listaAssentos.add(AssentoSelec.getPosAssento());
+	        } else {
+	            System.out.println("Assento " + numAssento + " não está disponível.");
+	            i--; // Tentar nova seleção.
+	        }
+	    }
+	    realizarCompra(qntMeias, qntInteiras, scanner, reserva, listaAssentos, sessao);
 	}
 
-	public static void escolherFilme(Scanner scanner, ArrayList<Filme> listaFilmes,ArrayList<Sessao> listaSessoes) {
+	public static void escolherFilme(Scanner scanner, ArrayList<Filme> listaFilmes,ArrayList<Sessao> listaSessoes, Reservar reserva) throws IOException {
 		int filmeIndex;
 		boolean filmeValido = false;
 		Filme filmeEscolhido = null;
@@ -93,10 +128,29 @@ public class MainTeste {
 			}
 		} while (!filmeValido);
 
-		escolherSessao(scanner, listaSessoes, filmeEscolhido);
+		escolherSessao(scanner, listaSessoes, filmeEscolhido, reserva);
+	}
+	
+	public static void realizarCompra(int qntMeias, int qntInteiras, Scanner scanner, Reservar reserva, ArrayList<String> listaAssentos, Sessao sessao) {
+		System.out.print("Deseja finalizar a compra? (S/N): ");
+	    String finalizar = scanner.nextLine();
+	    System.out.print("Digite o nome do comprador: ");
+	    String nome = scanner.nextLine();
+
+	    if (finalizar.equalsIgnoreCase("S")) {
+	    	try {
+				double precoFinal = reserva.comprarAssentos(qntMeias, qntInteiras, nome, listaAssentos, sessao);
+				System.out.println("Compra realizada com sucesso! Valor: " + precoFinal);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+	    }
+	    else {
+	    	System.out.println("Compra cancelada.");
+	    }
 	}
 
-	public static void mostrarMenu(ArrayList<Sessao> listaSessoes, ArrayList<Filme> listaFilmes) {
+	public static void mostrarMenu(ArrayList<Sessao> listaSessoes, ArrayList<Filme> listaFilmes, Reservar reserva) throws IOException {
 		Scanner scanner = new Scanner(System.in);
 		int escolha;
 
@@ -110,7 +164,7 @@ public class MainTeste {
 
 			switch (escolha) {
 			case 1:
-				escolherFilme(scanner, listaFilmes, listaSessoes);
+				escolherFilme(scanner, listaFilmes, listaSessoes, reserva);
 				break;
 			case 2:
 				System.out.println("Saindo...");
@@ -175,8 +229,13 @@ public class MainTeste {
 			}
 		}
 
-		//Reservar reserva = new Reservar("AssentosReservados.csv");
-		mostrarMenu(listaSessoes, listaFilmes);
+		Reservar reserva = new Reservar("AssentosReservados.csv");
+		try {
+			mostrarMenu(listaSessoes, listaFilmes, reserva);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 

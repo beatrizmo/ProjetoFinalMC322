@@ -23,11 +23,13 @@ public class Reservar implements I_Arquivo {
 		return true; //assento disponível
 	}
 
-	public void comprarAssentos(ArrayList <String> posicoesAssento, Sessao sessao) throws Exception{ //true se comprado
+	public double comprarAssentos(int qntMeias, int qntInteiras,String nome,ArrayList <String> posicoesAssento, Sessao sessao) throws Exception{ //true se comprado
 		//verificar se um assento esta ocupado quando o usuario for comprar
 		//throws exception se tiver acabado de ser comprado por alguem!
 		//gravar no arquivo se estiver disponivel
-
+		ArrayList<Ingresso> listaIngressos= new ArrayList<>();
+		double precoFinal = 0;
+		
 		//antes de gravar no arquivo, verifica-se se todos os assentos estão disponíveis
 		for (String posAssento : posicoesAssento) { 
 			String chave = sessao.getFilme().getTitulo() + "," + sessao.getData() + "," + sessao.getHorario() + "," + posAssento;			
@@ -41,8 +43,23 @@ public class Reservar implements I_Arquivo {
 			// Adiciona o dado ao arquivo CSV
 			try (BufferedWriter writer = new BufferedWriter(new FileWriter(NOME_ARQUIVO, true))) {
 				this.gravarArquivo(chave);
+				if (qntMeias > 0) {
+					IngressoMeia meia = new IngressoMeia(posAssento,nome,0.5,sessao);
+					listaIngressos.add(meia);
+					precoFinal += meia.getPreco();
+					qntMeias--;
+				}
+				else if (qntInteiras > 0) {
+					IngressoInteira inteira = new IngressoInteira(posAssento,nome,sessao);
+					listaIngressos.add(inteira);
+					precoFinal += inteira.getPreco();
+					qntInteiras--;
+				}
 			}
 		}
+		Recibo recibo = new Recibo(precoFinal, sessao.getData(), sessao.getHorario(), sessao.getFilme().getTitulo(), posicoesAssento);
+		recibo.toImg();		
+		return precoFinal;
 	}
 
 	public boolean verificarDadoExistente(String dado) throws IOException {

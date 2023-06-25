@@ -4,9 +4,10 @@ package CinemaToten;
 public class IngressoMeia extends Ingresso {
     private double porcentagemDesconto;
     
-    public IngressoMeia(Assento assento, String nomeCliente, double porcentagemDesconto, Sessao sessao) {
+    public IngressoMeia(String assento, String nomeCliente, double porcentagemDesconto, Sessao sessao) {
         super(assento, nomeCliente, sessao);
         this.porcentagemDesconto = porcentagemDesconto;
+        this.calcularPreco();
     }
     
     @Override

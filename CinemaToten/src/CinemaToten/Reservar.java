@@ -26,6 +26,7 @@ public class Reservar implements I_Arquivo {
 	public double comprarAssentos(int qntMeias, int qntInteiras,String nome,ArrayList <String> posicoesAssento, Sessao sessao) throws Exception{ //true se comprado
 		//verificar se um assento esta ocupado quando o usuario for comprar
 		//throws exception se tiver acabado de ser comprado por alguem!
+		
 		//gravar no arquivo se estiver disponivel
 		ArrayList<Ingresso> listaIngressos= new ArrayList<>();
 		double precoFinal = 0;
@@ -57,15 +58,19 @@ public class Reservar implements I_Arquivo {
 				}
 			}
 		}
+		
+		//Cria um arquivo imagem contendo os dados dos  ingressos e valor total pago 
 		Recibo recibo = new Recibo(precoFinal, sessao.getData(), sessao.getHorario(), sessao.getFilme().getTitulo(), posicoesAssento);
 		recibo.toImg();		
 		return precoFinal;
 	}
 
+	//Metodo que verifica se o dado (assento) ja existe no arquivo, se existir o assento esta ocupado
 	public boolean verificarDadoExistente(String dado) throws IOException {
 		return Files.lines(Paths.get(NOME_ARQUIVO)).anyMatch(line -> line.equals(dado));
 	}
 
+	//Metodo que grava o conteudo(posicao do assento e dados do filme) no arquivo especificado
 	@Override
 	public boolean gravarArquivo(String conteudo) throws IOException {
 		try {
@@ -80,6 +85,7 @@ public class Reservar implements I_Arquivo {
 		}
 	}
 
+	//Metodo que le o arquivo especificado 
 	@Override
 	public String lerArquivo() throws IOException {
 		try {

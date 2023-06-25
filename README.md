@@ -18,7 +18,7 @@ Os diagramas UML contendo mais detalhes da implementação pode ser visto abaixo
 ## Funcionalidades
 
 - Visualização de filmes em cartaz e suas respectivas informações como titulo, sinopse, duração e horário de exibição. 
-- Seleção de assentos disponíveis nas modalidades VIP ou Comum
+- Seleção de assentos disponíveis
 - Compra de ingressos nas modalidades inteira ou meia
 - Emissão de recibos em formato de imagem.
 

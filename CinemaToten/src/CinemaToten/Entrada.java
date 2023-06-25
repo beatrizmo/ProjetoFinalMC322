@@ -1,13 +1,14 @@
 package CinemaToten;
 
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-//import java.awt.event.ActionListener;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -17,24 +18,15 @@ import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.AbstractAction;
-import javax.swing.Action;
 
 //Classe que cria a tela de entrada do programa
-
-public class Entrada extends JPanel {
+public class Entrada extends JFrame implements ActionListener{
 	
-	Filme film1, film2, film3;
 	String data[];
-	/**
-	 * 
-	 */
+	JComboBox<String> datas;
+	Filme film1, film2, film3;
 	private static final long serialVersionUID = 1L;
-	private final Action action = new SwingAction();
-
-	/**
-	 * Create the panel.
-	 */
+	
 	public Entrada(Filme film1, Filme film2,Filme film3,String[] data) {
 		this.film1 = film1;
 		this.film2 = film2;
@@ -42,17 +34,19 @@ public class Entrada extends JPanel {
 		this.data = data;
 		
 		//Definições iniciais da tela
-		setMaximumSize(new Dimension(1050, 575));
-		setMinimumSize(new Dimension(1050, 575));
+		setVisible(true);
+		setSize(1050,675);
 		setBackground(new Color(13, 1, 73));
-		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		setTitle("SuperCine- sistema de reserva de cinema");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 		
 		//Painel do título do álbum
 		JPanel titulo = new JPanel();
 		titulo.setAlignmentY(Component.TOP_ALIGNMENT);
 		titulo.setBorder(new EmptyBorder(15, 0, 0, 0));
 		titulo.setBackground(new Color(13, 1, 73));
-		add(titulo);
+		getContentPane().add(titulo);
 		FlowLayout fl_titulo = new FlowLayout(FlowLayout.CENTER, 5,0);
 		titulo.setLayout(fl_titulo);
 		
@@ -65,7 +59,7 @@ public class Entrada extends JPanel {
 		fl_conteudos.setHgap(0);
 		conteudos.setForeground(new Color(25, 25, 112));
 		conteudos.setBackground(new Color(13, 1, 73));
-		add(conteudos);
+		getContentPane().add(conteudos);
 		
 		JPanel datasPainel = new JPanel();
 		datasPainel.setBorder(new EmptyBorder(0, 50, 0, 50));
@@ -73,7 +67,7 @@ public class Entrada extends JPanel {
 		conteudos.add(datasPainel);
 		
 		//Combobox com as datas disponíveis
-		JComboBox<String> datas = new JComboBox<String>();
+		datas = new JComboBox<String>();
 		datas.setForeground(new Color(13, 1, 73));
 		datas.setFont(new Font("Bahnschrift", Font.PLAIN, 15));
 		datas.setBackground(new Color(230, 230, 250));
@@ -134,7 +128,7 @@ public class Entrada extends JPanel {
 		
 		//botão do filme 1
 		JButton btnIngresso1 = new JButton("Compre seu ingresso");
-		btnIngresso1.setAction(action);
+		btnIngresso1.addActionListener(this::sel1);
 		btnIngresso1.setFont(new Font("Bahnschrift", Font.PLAIN, 11));
 		btnIngresso1.setForeground(new Color(13, 1, 73));
 		btnIngresso1.setBackground(new Color(230, 230, 250));
@@ -186,6 +180,7 @@ public class Entrada extends JPanel {
 		btnIngresso2.setFont(new Font("Bahnschrift", Font.PLAIN, 11));
 		btnIngresso2.setBackground(new Color(230, 230, 250));
 		btnIngresso2.setAlignmentX(0.5f);
+		btnIngresso2.addActionListener(this::sel2);
 		filme2.add(btnIngresso2);
 		
 		//Painel com o terceiro filme
@@ -234,6 +229,7 @@ public class Entrada extends JPanel {
 		btnIngresso3.setFont(new Font("Bahnschrift", Font.PLAIN, 11));
 		btnIngresso3.setBackground(new Color(230, 230, 250));
 		btnIngresso3.setAlignmentX(0.5f);
+		btnIngresso2.addActionListener(this::sel3);
 		filme3.add(btnIngresso3);
 		
 		JLabel lblNewLabel = new JLabel("SuperCine");
@@ -246,17 +242,23 @@ public class Entrada extends JPanel {
 
 	}
 
-	private class SwingAction extends AbstractAction {
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 1L;
-		public SwingAction() {
-			putValue(NAME, "Compre seu ingresso.");
-			putValue(SHORT_DESCRIPTION, "Some short description");
-		}
-		public void actionPerformed(ActionEvent e) {
-		
-		}
+	public void sel1(ActionEvent event) {
+		setVisible(false);
+		String[] aaaaa = {"a", "canario", "tio"};
+		new Selecao(aaaaa,film1,(String)datas.getSelectedItem());
+	}
+	public void sel2(ActionEvent event) {
+		setVisible(false);
+		String[] aaaaa = {"a", "canario", "tio"};
+		new Selecao(aaaaa,film2,(String)datas.getSelectedItem());
+	}
+	public void sel3(ActionEvent event) {
+		setVisible(false);
+		String[] aaaaa = {"a", "canario", "tio"};
+		new Selecao(aaaaa,film2,(String)datas.getSelectedItem());
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+	
 	}
 }

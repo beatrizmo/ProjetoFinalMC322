@@ -3,15 +3,20 @@ package CinemaToten;
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
+import java.awt.event.*;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.ComboBoxModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
@@ -19,27 +24,29 @@ import javax.swing.DefaultComboBoxModel;
 
 //Classe seleção que cria a tela de seleção de assentos
 
-public class selecao extends JPanel {
+public class selecao extends JFrame implements ActionListener{
 
-	private static final long serialVersionUID = 1L;
-
-	/**
-	 * Create the panel.
-	 */
-	String[] horarios;
 	String dia;
 	Filme filme;
+	String[] horarios;
+	int total=0,sel=0;
+	JComboBox<String> meiaSel, inteiraSel;
+	private static final long serialVersionUID = 1L;
 	
 	public selecao(String[] horarios, Filme filme, String dia) {
 		this.horarios = horarios;
 		this.filme = filme;
 		this.dia = dia;
 		
+		
+		setVisible(true);
+		
 		//Definições iniciais da tela
-		setMaximumSize(new Dimension(1050, 575));
-		setMinimumSize(new Dimension(1050, 575));
+		setSize(1050,675);
+		setTitle("SuperCine - Compra de ingressos");
 		setBackground(new Color(13, 1, 73));
-		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 		
 		//Painel superior com as informações do cinema e do filme 
 		JPanel info = new JPanel();
@@ -47,7 +54,7 @@ public class selecao extends JPanel {
 		info.setPreferredSize(new Dimension(1000, 10));
 		info.setMinimumSize(new Dimension(1000, 10));
 		info.setBackground(new Color(13, 1, 73));
-		add(info);
+		getContentPane().add(info);
 		
 		JPanel dados = new JPanel();
 		dados.setPreferredSize(new Dimension(1000, 130));
@@ -73,6 +80,7 @@ public class selecao extends JPanel {
 		voltarButton.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
 		voltarButton.setForeground(new Color(13, 1, 73));
 		voltarButton.setBackground(new Color(54, 26, 115));
+		voltarButton.addActionListener(this::voltar);
 		voltarPanel.add(voltarButton);
 		
 		//Painel vaxio para manter o espaçamento
@@ -107,7 +115,7 @@ public class selecao extends JPanel {
 		tituloFilme.setText(filme.getTitulo());
 		tituloFilme.setMaximumSize(new Dimension(500, 45));
 		tituloFilme.setHorizontalTextPosition(SwingConstants.LEFT);
-		tituloFilme.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 20));
+		tituloFilme.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 24));
 		tituloFilme.setForeground(new Color(230, 230, 250));
 		tituloPanel.add(tituloFilme);
 		
@@ -116,7 +124,7 @@ public class selecao extends JPanel {
 		horarioPanel.setBackground(new Color(13, 1, 73));
 		tituloData.add(horarioPanel);
 		
-		JLabel horarioLabel = new JLabel("Horário:");
+		JLabel horarioLabel = new JLabel("Horário: ");
 		horarioLabel.setForeground(new Color(230, 230, 250));
 		horarioLabel.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
 		horarioPanel.add(horarioLabel);
@@ -131,7 +139,7 @@ public class selecao extends JPanel {
 		JPanel reserva = new JPanel();
         reserva.setBackground(new Color(13, 1, 73));
         reserva.setLayout(new GridLayout(1, 5, 0, 0));
-        add(reserva);
+        getContentPane().add(reserva);
 		
         JPanel assentos = new JPanel();
         assentos.setBorder(new EmptyBorder(20, 60, 20, 60));
@@ -146,390 +154,58 @@ public class selecao extends JPanel {
         assentos.add(mapa, BorderLayout.CENTER);
         mapa.setLayout(new GridLayout(6, 8, 10, 10));
         
-	        //Assentos
-	        JPanel A1 = new JPanel();
-	        A1.setBackground(new Color(171, 96, 237));
-	        mapa.add(A1);
-	        JLabel A1lbl = new JLabel("A1");
-	        A1lbl.setForeground(new Color(0, 0, 128));
-	        A1lbl.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        A1.add(A1lbl);
+        //Assentos
+        JButton A1 = new JButton("A1"); mapa.add(A1);
+        A1.addActionListener(this::selecionar);
+        JButton A2 = new JButton("A2"); mapa.add(A2);
+        JButton A3 = new JButton("A3"); mapa.add(A3);
+        JButton A4 = new JButton("A4"); mapa.add(A4);
+        JButton A5 = new JButton("A5"); mapa.add(A5);
+        JButton A6 = new JButton("A6"); mapa.add(A6);
+        JButton A7 = new JButton("A7"); mapa.add(A7);
+        JButton A8 = new JButton("A8"); mapa.add(A8);
+        JButton B1 = new JButton("B1"); mapa.add(B1);
+        JButton B2 = new JButton("B2"); mapa.add(B2);
+        JButton B3 = new JButton("B3"); mapa.add(B3);
+        JButton B4 = new JButton("B4"); mapa.add(B4);
+        JButton B5 = new JButton("B5"); mapa.add(B5);
+        JButton B6 = new JButton("B6"); mapa.add(B6);
+        JButton B7 = new JButton("B7"); mapa.add(B7);
+        JButton B8 = new JButton("B8"); mapa.add(B8);
+        JButton C1 = new JButton("C1"); mapa.add(C1);
+        JButton C2 = new JButton("C2"); mapa.add(C2);
+        JButton C3 = new JButton("C3"); mapa.add(C3);
+        JButton C4 = new JButton("C4"); mapa.add(C4);
+        JButton C5 = new JButton("C5"); mapa.add(C5);
+        JButton C6 = new JButton("C6"); mapa.add(C6);
+        JButton C7 = new JButton("C7"); mapa.add(C7);
+        JButton C8 = new JButton("C8"); mapa.add(C8);
+        JButton D1 = new JButton("D1"); mapa.add(D1);
+        JButton D2 = new JButton("D2"); mapa.add(D2);
+        JButton D3 = new JButton("D3"); mapa.add(D3);
+        JButton D4 = new JButton("D4"); mapa.add(D4);
+		JButton D5 = new JButton("D5"); mapa.add(D5);
+		JButton D6 = new JButton("D6"); mapa.add(D6);
+		JButton D7 = new JButton("D7"); mapa.add(D7);
+		JButton D8 = new JButton("D8"); mapa.add(D8);
+		JButton E1 = new JButton("E1"); mapa.add(E1);
+		JButton E2 = new JButton("E2"); mapa.add(E2);
+		JButton E3 = new JButton("E3"); mapa.add(E3);
+		JButton E4 = new JButton("E4"); mapa.add(E4);
+		JButton E5 = new JButton("E5"); mapa.add(E5);
+		JButton E6 = new JButton("E6"); mapa.add(E6);
+		JButton E7 = new JButton("E7"); mapa.add(E7);
+		JButton E8 = new JButton("E8"); mapa.add(E8);
+		JButton F1 = new JButton("F1"); mapa.add(F1);
+		JButton F2 = new JButton("F2"); mapa.add(F2);
+		JButton F3 = new JButton("F3"); mapa.add(F3);
+		JButton F4 = new JButton("F4"); mapa.add(F4);
+		JButton F5 = new JButton("F5"); mapa.add(F5);
+		JButton F6 = new JButton("F6"); mapa.add(F6);
+		JButton F7 = new JButton("F7"); mapa.add(F7);
+		JButton F8 = new JButton("F8"); mapa.add(F8);    
 	        
-	        JPanel A2 = new JPanel();
-	        A2.setBackground(new Color(171, 96, 237));
-	        mapa.add(A2);
-	        JLabel lblA = new JLabel("A2");
-	        lblA.setForeground(new Color(0, 0, 128));
-	        lblA.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        A2.add(lblA);
-	        
-	        JPanel A3 = new JPanel();
-	        A3.setBackground(new Color(157, 205, 90));
-	        mapa.add(A3);
-	        JLabel lblA_1 = new JLabel("A3");
-	        lblA_1.setForeground(new Color(0, 0, 128));
-	        lblA_1.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        A3.add(lblA_1);
-	        
-	        JPanel A4 = new JPanel();
-	        A4.setBackground(new Color(171, 96, 237));
-	        mapa.add(A4);
-	        JLabel lblA_2 = new JLabel("A4");
-	        lblA_2.setForeground(new Color(0, 0, 128));
-	        lblA_2.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        A4.add(lblA_2);
-	        
-	        JPanel A5 = new JPanel();
-	        A5.setBackground(new Color(171, 96, 237));
-	        mapa.add(A5);
-	        JLabel lblA_3 = new JLabel("A5");
-	        lblA_3.setForeground(new Color(0, 0, 128));
-	        lblA_3.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        A5.add(lblA_3);
-	        
-	        JPanel A6 = new JPanel();
-	        A6.setBackground(new Color(171, 96, 237));
-	        mapa.add(A6);
-	        JLabel lblA_4 = new JLabel("A6");
-	        lblA_4.setForeground(new Color(0, 0, 128));
-	        lblA_4.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        A6.add(lblA_4);
-	        
-	        JPanel A7 = new JPanel();
-	        A7.setBackground(new Color(171, 96, 237));
-	        mapa.add(A7);
-	        JLabel lblA_5 = new JLabel("A7");
-	        lblA_5.setForeground(new Color(0, 0, 128));
-	        lblA_5.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        A7.add(lblA_5);
-	        
-	        JPanel A8 = new JPanel();
-	        A8.setBackground(new Color(171, 96, 237));
-	        mapa.add(A8);
-	        JLabel lblA_6 = new JLabel("A8");
-	        lblA_6.setForeground(new Color(0, 0, 128));
-	        lblA_6.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        A8.add(lblA_6);
-	        
-	        JPanel B1 = new JPanel();
-	        B1.setBackground(new Color(171, 96, 237));
-	        mapa.add(B1);
-	        JLabel lblB = new JLabel("B1");
-	        lblB.setForeground(new Color(0, 0, 128));
-	        lblB.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        B1.add(lblB);
-	        
-	        JPanel B2 = new JPanel();
-	        B2.setBackground(new Color(171, 96, 237));
-	        mapa.add(B2);
-	        JLabel lblB_1 = new JLabel("B2");
-	        lblB_1.setForeground(new Color(0, 0, 128));
-	        lblB_1.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        B2.add(lblB_1);
-	        
-	        JPanel B3 = new JPanel();
-	        B3.setBackground(new Color(171, 96, 237));
-	        mapa.add(B3);
-	        JLabel lblB_2 = new JLabel("B3");
-	        B3.add(lblB_2);
-	        lblB_2.setForeground(new Color(0, 0, 128));
-	        lblB_2.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        
-	        JPanel B4 = new JPanel();
-	        B4.setBackground(new Color(248, 86, 70));
-	        mapa.add(B4);
-	        JLabel lblB_3 = new JLabel("B4");
-	        lblB_3.setForeground(new Color(0, 0, 128));
-	        lblB_3.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        B4.add(lblB_3);
-	        
-	        JPanel B5 = new JPanel();
-	        B5.setBackground(new Color(171, 96, 237));
-	        mapa.add(B5);
-	        JLabel lblB_4 = new JLabel("B5");
-	        lblB_4.setForeground(new Color(0, 0, 128));
-	        lblB_4.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        B5.add(lblB_4);
-	        
-	        JPanel B6 = new JPanel();
-	        B6.setBackground(new Color(171, 96, 237));
-	        mapa.add(B6);
-	        JLabel lblB_5 = new JLabel("B6");
-	        lblB_5.setForeground(new Color(0, 0, 128));
-	        lblB_5.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        B6.add(lblB_5);
-	        
-	        JPanel B7 = new JPanel();
-	        B7.setBackground(new Color(171, 96, 237));
-	        mapa.add(B7);
-	        JLabel lblB_6 = new JLabel("B7");
-	        lblB_6.setForeground(new Color(0, 0, 128));
-	        lblB_6.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        B7.add(lblB_6);
-	        
-	        JPanel B8 = new JPanel();
-	        B8.setBackground(new Color(171, 96, 237));
-	        mapa.add(B8);
-	        JLabel lblB_7 = new JLabel("B8");
-	        lblB_7.setForeground(new Color(0, 0, 128));
-	        lblB_7.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        B8.add(lblB_7);
-	        
-	        JPanel C1 = new JPanel();
-	        C1.setBackground(new Color(171, 96, 237));
-	        mapa.add(C1);
-	        JLabel lblC = new JLabel("C1");
-	        lblC.setForeground(new Color(0, 0, 128));
-	        lblC.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        C1.add(lblC);
-	        
-	        JPanel C2 = new JPanel();
-	        C2.setBackground(new Color(171, 96, 237));
-	        mapa.add(C2);
-	        JLabel lblC_1 = new JLabel("C2");
-	        lblC_1.setForeground(new Color(0, 0, 128));
-	        lblC_1.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        C2.add(lblC_1);
-	        
-	        JPanel C3 = new JPanel();
-	        C3.setBackground(new Color(171, 96, 237));
-	        mapa.add(C3);
-	        JLabel lblC_2 = new JLabel("C3");
-	        lblC_2.setForeground(new Color(0, 0, 128));
-	        lblC_2.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        C3.add(lblC_2);
-	        
-	        JPanel C4 = new JPanel();
-	        C4.setBackground(new Color(171, 96, 237));
-	        mapa.add(C4);
-	        JLabel lblC_3 = new JLabel("C4");
-	        lblC_3.setForeground(new Color(0, 0, 128));
-	        lblC_3.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        C4.add(lblC_3);
-	        
-	        JPanel C5 = new JPanel();
-	        C5.setBackground(new Color(171, 96, 237));
-	        mapa.add(C5);
-	        JLabel lblC_4 = new JLabel("C5");
-	        lblC_4.setForeground(new Color(0, 0, 128));
-	        lblC_4.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        C5.add(lblC_4);
-	        
-	        JPanel C6 = new JPanel();
-	        C6.setBackground(new Color(171, 96, 237));
-	        mapa.add(C6);
-	        JLabel lblC_5 = new JLabel("C6");
-	        lblC_5.setForeground(new Color(0, 0, 128));
-	        lblC_5.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        C6.add(lblC_5);
-	        
-	        JPanel C7 = new JPanel();
-	        C7.setBackground(new Color(171, 96, 237));
-	        mapa.add(C7);
-	        JLabel lblC_6 = new JLabel("C7");
-	        lblC_6.setForeground(new Color(0, 0, 128));
-	        lblC_6.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        C7.add(lblC_6);
-	        
-	        JPanel C8 = new JPanel();
-	        C8.setBackground(new Color(171, 96, 237));
-	        mapa.add(C8);
-	        JLabel lblC_7 = new JLabel("C8");
-	        lblC_7.setForeground(new Color(0, 0, 128));
-	        lblC_7.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        C8.add(lblC_7);
-	        
-	        JPanel D1 = new JPanel();
-	        D1.setBackground(new Color(171, 96, 237));
-	        mapa.add(D1);
-	        JLabel lblD = new JLabel("D1");
-	        lblD.setForeground(new Color(0, 0, 128));
-	        lblD.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        D1.add(lblD);
-	        
-	        JPanel D2 = new JPanel();
-	        D2.setBackground(new Color(171, 96, 237));
-	        mapa.add(D2);
-	        JLabel lblD_1 = new JLabel("D2");
-	        lblD_1.setForeground(new Color(0, 0, 128));
-	        lblD_1.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        D2.add(lblD_1);
-	        
-	        JPanel D3 = new JPanel();
-	        D3.setBackground(new Color(171, 96, 237));
-	        mapa.add(D3);
-	        JLabel lblD_2 = new JLabel("D3");
-	        lblD_2.setForeground(new Color(0, 0, 128));
-	        lblD_2.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        D3.add(lblD_2);
-	        
-	        JPanel D4 = new JPanel();
-	        D4.setBackground(new Color(171, 96, 237));
-	        mapa.add(D4);
-	        JLabel lblD_3 = new JLabel("D4");
-	        lblD_3.setForeground(new Color(0, 0, 128));
-	        lblD_3.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        D4.add(lblD_3);
-	        
-	        JPanel D5 = new JPanel();
-	        D5.setBackground(new Color(171, 96, 237));
-	        mapa.add(D5);
-	        JLabel lblD_4 = new JLabel("D5");
-	        lblD_4.setForeground(new Color(0, 0, 128));
-	        lblD_4.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        D5.add(lblD_4);
-	        
-	        JPanel D6 = new JPanel();
-	        D6.setBackground(new Color(171, 96, 237));
-	        mapa.add(D6);
-	        JLabel lblD_5 = new JLabel("D6");
-	        lblD_5.setForeground(new Color(0, 0, 128));
-	        lblD_5.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        D6.add(lblD_5);
-	        
-	        JPanel D7 = new JPanel();
-	        D7.setBackground(new Color(171, 96, 237));
-	        mapa.add(D7);
-	        JLabel lblD_6 = new JLabel("D7");
-	        lblD_6.setForeground(new Color(0, 0, 128));
-	        lblD_6.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        D7.add(lblD_6);
-	        
-	        JPanel D8 = new JPanel();
-	        D8.setBackground(new Color(171, 96, 237));
-	        mapa.add(D8);
-	        JLabel lblD_7 = new JLabel("D8");
-	        lblD_7.setForeground(new Color(0, 0, 128));
-	        lblD_7.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        D8.add(lblD_7);
-	        
-	        JPanel E1 = new JPanel();
-	        E1.setBackground(new Color(171, 96, 237));
-	        mapa.add(E1);
-	        JLabel lblE = new JLabel("E1");
-	        lblE.setForeground(new Color(0, 0, 128));
-	        lblE.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        E1.add(lblE);
-	        
-	        JPanel E2 = new JPanel();
-	        E2.setBackground(new Color(171, 96, 237));
-	        mapa.add(E2);
-	        JLabel lblE_1 = new JLabel("E2");
-	        lblE_1.setForeground(new Color(0, 0, 128));
-	        lblE_1.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        E2.add(lblE_1);
-	        
-	        JPanel E3 = new JPanel();
-	        E3.setBackground(new Color(171, 96, 237));
-	        mapa.add(E3);
-	        JLabel lblE_2 = new JLabel("E3");
-	        lblE_2.setForeground(new Color(0, 0, 128));
-	        lblE_2.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        E3.add(lblE_2);
-	        
-	        JPanel E4 = new JPanel();
-	        E4.setBackground(new Color(171, 96, 237));
-	        mapa.add(E4);
-	        JLabel lblE_3 = new JLabel("E4");
-	        lblE_3.setForeground(new Color(0, 0, 128));
-	        lblE_3.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        E4.add(lblE_3);
-	        
-	        JPanel E5 = new JPanel();
-	        E1.setBackground(new Color(171, 96, 237));
-	        mapa.add(E5);
-	        JLabel lblE_4 = new JLabel("E5");
-	        lblE_4.setForeground(new Color(0, 0, 128));
-	        lblE_4.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        E5.add(lblE_4);
-	        
-	        JPanel E6 = new JPanel();
-	        E6.setBackground(new Color(171, 96, 237));
-	        mapa.add(E6);
-	        JLabel lblE_5 = new JLabel("E6");
-	        lblE_5.setForeground(new Color(0, 0, 128));
-	        lblE_5.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        E6.add(lblE_5);
-	        
-	        JPanel E7 = new JPanel();
-	        E7.setBackground(new Color(171, 96, 237));
-	        mapa.add(E7);
-	        JLabel lblE_6 = new JLabel("E7");
-	        lblE_6.setForeground(new Color(0, 0, 128));
-	        lblE_6.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        E7.add(lblE_6);
-	        
-	        JPanel E8 = new JPanel();
-	        E8.setBackground(new Color(171, 96, 237));
-	        mapa.add(E8);
-	        JLabel lblE_7 = new JLabel("E8");
-	        lblE_7.setForeground(new Color(0, 0, 128));
-	        lblE_7.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        E8.add(lblE_7);
-	        
-	        JPanel F1 = new JPanel();
-	        F1.setBackground(new Color(171, 96, 237));
-	        mapa.add(F1);
-	        JLabel lblF = new JLabel("F1");
-	        lblF.setForeground(new Color(0, 0, 128));
-	        lblF.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        F1.add(lblF);
-	        
-	        JPanel F2 = new JPanel();
-	        F2.setBackground(new Color(171, 96, 237));
-	        mapa.add(F2);
-	        JLabel lblF_1 = new JLabel("F2");
-	        lblF_1.setForeground(new Color(0, 0, 128));
-	        lblF_1.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        F2.add(lblF_1);
-	        
-	        JPanel F3 = new JPanel();
-	        F3.setBackground(new Color(171, 96, 237));
-	        mapa.add(F3);
-	        JLabel lblF_2 = new JLabel("F3");
-	        lblF_2.setForeground(new Color(0, 0, 128));
-	        lblF_2.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        F3.add(lblF_2);
-	        
-	        JPanel F4 = new JPanel();
-	        F4.setBackground(new Color(171, 96, 237));
-	        mapa.add(F4);
-	        JLabel lblF_3 = new JLabel("F4");
-	        lblF_3.setForeground(new Color(0, 0, 128));
-	        lblF_3.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        F4.add(lblF_3);
-	        
-	        JPanel F5 = new JPanel();
-	        F5.setBackground(new Color(171, 96, 237));
-	        mapa.add(F5);
-	        JLabel lblF_4 = new JLabel("F5");
-	        lblF_4.setForeground(new Color(0, 0, 128));
-	        lblF_4.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        F5.add(lblF_4);
-	        
-	        JPanel F6 = new JPanel();
-	        F6.setBackground(new Color(171, 96, 237));
-	        mapa.add(F6);
-	        JLabel lblF_5 = new JLabel("F6");
-	        lblF_5.setForeground(new Color(0, 0, 128));
-	        lblF_5.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        F6.add(lblF_5);
-	        
-	        JPanel F7 = new JPanel();
-	        F7.setBackground(new Color(171, 96, 237));
-	        mapa.add(F7);
-	        JLabel lblF_6 = new JLabel("F7");
-	        lblF_6.setForeground(new Color(0, 0, 128));
-	        lblF_6.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        F7.add(lblF_6);
-	        
-	        JPanel F8 = new JPanel();
-	        F8.setBackground(new Color(171, 96, 237));
-	        mapa.add(F8);
-	        JLabel lblF_7 = new JLabel("F8");
-	        lblF_7.setForeground(new Color(0, 0, 128));
-	        lblF_7.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
-	        F8.add(lblF_7);
+		configurar(mapa);
         
 	    //Legenda das cores dos assentos
         JLabel legenda = new JLabel("Verde - Selecionado, Roxo -Livre, Vermelho - Reservado");
@@ -548,8 +224,8 @@ public class selecao extends JPanel {
 		inteira.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
 		tipoPanel.add(inteira);
 		
-		JComboBox<String> inteiraSel = new JComboBox<String>();
-		inteiraSel.setModel(new DefaultComboBoxModel<String>(new String[] {"1", "2", "3", "4", "5", "6", "7"}));
+		inteiraSel = new JComboBox<String>();
+		inteiraSel.setModel(new DefaultComboBoxModel<String>(new String[] {"0","1", "2", "3", "4", "5", "6", "7"}));
 		tipoPanel.add(inteiraSel);
 		
 		//Ingressos tipo meia 
@@ -558,8 +234,8 @@ public class selecao extends JPanel {
 		meia.setForeground(new Color(230, 230, 250));
 		tipoPanel.add(meia);
 		
-		JComboBox<String> meiaSel = new JComboBox<String>();
-		meiaSel.setModel(new DefaultComboBoxModel<String>(new String[] {"1", "2", "3", "4", "5", "6", "7"}));
+		meiaSel = new JComboBox<String>();
+		meiaSel.setModel(new DefaultComboBoxModel<String>(new String[] {"0","1", "2", "3", "4", "5", "6", "7"}));
 		tipoPanel.add(meiaSel);
 
         //Painel com o resumo dos dados do pedido 
@@ -591,32 +267,32 @@ public class selecao extends JPanel {
 		resumoPainel.add(dadosFinaisPanel);
 		
 		//Titulo do filme
-		JLabel tituloFinal = new JLabel("Nome do filme");
+		JLabel tituloFinal = new JLabel("Filme: "+ filme.getTitulo());
 		tituloFinal.setFont(new Font("Bahnschrift", Font.PLAIN, 14));
 		tituloFinal.setForeground(new Color(230, 230, 250));
 		dadosFinaisPanel.add(tituloFinal);
 		
 		//Dia selecionado
 		JLabel dataFinal = new JLabel();
-		dataFinal.setText(dia);
+		dataFinal.setText("Data: "+ dia);
 		dataFinal.setFont(new Font("Bahnschrift", Font.PLAIN, 14));
 		dataFinal.setForeground(new Color(230, 230, 250));
 		dadosFinaisPanel.add(dataFinal);
 		
 		//horário selecionado
-		JLabel horarioFinal = new JLabel("horario");
+		JLabel horarioFinal = new JLabel("horário: "+horarios_1.getSelectedItem());
 		horarioFinal.setFont(new Font("Bahnschrift", Font.PLAIN, 14));
 		horarioFinal.setForeground(new Color(230, 230, 250));
 		dadosFinaisPanel.add(horarioFinal);
 		
 		//Quantidade de ingressos selecionados
-		JLabel qtdIngressos = new JLabel("Qunatidade de ingresso");
+		JLabel qtdIngressos = new JLabel("Qunatidade de ingressos: "+total);
 		qtdIngressos.setFont(new Font("Bahnschrift", Font.PLAIN, 14));
 		qtdIngressos.setForeground(new Color(230, 230, 250));
 		dadosFinaisPanel.add(qtdIngressos);
 		
 		//Preço total 
-		JLabel precoFinal = new JLabel("Preço totoal");
+		JLabel precoFinal = new JLabel("Preço total: ");
 		precoFinal.setFont(new Font("Bahnschrift", Font.PLAIN, 14));
 		precoFinal.setForeground(new Color(230, 230, 250));
 		dadosFinaisPanel.add(precoFinal);
@@ -627,10 +303,36 @@ public class selecao extends JPanel {
 		dadosFinaisPanel.add(finalizarPanel);
 		
 		JButton finalizar = new JButton("Finalizar compra");
+		finalizar.setForeground(new Color(230, 230, 250));
 		finalizar.setVerticalAlignment(SwingConstants.BOTTOM);
 		finalizar.setBackground(new Color(54, 26, 115));
 		finalizar.setBorder(new EmptyBorder(4, 4, 4, 4));
 		finalizarPanel.add(finalizar);
+	}
+
+	private static void configurar(Container container) {
+        Component[] components = container.getComponents();
+        for (Component component : components) {
+        	JButton button = (JButton) component;
+            button.setBackground(new Color(171, 96, 237));
+            button.setForeground(new Color(0, 0, 128));
+            button.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
+	        button.setBorderPainted(false);
+        }
+    }
+	
+	public void voltar(ActionEvent event) {
+		dispose();
+		new Entrada(filme, filme, filme, horarios);
+	}
+	public void selecionar(ActionEvent e) {
+		JButton aqui = (JButton) e.getSource();
+		aqui.setBackground(new Color(157,205,90));
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

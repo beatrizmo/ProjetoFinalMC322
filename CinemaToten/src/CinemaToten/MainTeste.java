@@ -55,7 +55,8 @@ public class MainTeste {
 		int filmeIndex;
 		boolean filmeValido = false;
 		Filme filmeEscolhido = null;
-
+		new Entrada(listaSessoes);
+		
 		listarFilmes(listaFilmes);
 		System.out.println("0. Voltar para o menu inicial");
 

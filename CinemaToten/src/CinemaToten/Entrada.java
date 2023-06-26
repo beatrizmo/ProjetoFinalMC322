@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -24,14 +25,19 @@ public class Entrada extends JFrame implements ActionListener{
 	
 	String data[];
 	JComboBox<String> datas;
-	Filme film1, film2, film3;
+	ArrayList<Filme> filmes;
+	ArrayList<Sessao> listaSessoes;
+	JComboBox<String> Horarios;
+	Sessao selected;
+	Listas lista;
 	private static final long serialVersionUID = 1L;
 	
-	public Entrada(Filme film1, Filme film2,Filme film3,String[] data) {
-		this.film1 = film1;
-		this.film2 = film2;
-		this.film3 = film3;
-		this.data = data;
+	public Entrada(ArrayList<Sessao> list) {
+		
+		this.listaSessoes = list;
+		lista = new Listas(listaSessoes);
+		filmes = lista.getFilmes();
+		this.data = lista.getDatas().toArray(new String[0]);
 		
 		//Definições iniciais da tela
 		setVisible(true);
@@ -62,17 +68,36 @@ public class Entrada extends JFrame implements ActionListener{
 		getContentPane().add(conteudos);
 		
 		JPanel datasPainel = new JPanel();
+		FlowLayout flowLayout = (FlowLayout) datasPainel.getLayout();
+		flowLayout.setHgap(40);
 		datasPainel.setBorder(new EmptyBorder(0, 50, 0, 50));
 		datasPainel.setBackground(new Color(13, 1, 73));
 		conteudos.add(datasPainel);
+		
+		JLabel data_1 = new JLabel("Datas:");
+		data_1.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
+		data_1.setForeground(new Color(230, 230, 250));
+		datasPainel.add(data_1);
 		
 		//Combobox com as datas disponíveis
 		datas = new JComboBox<String>();
 		datas.setForeground(new Color(13, 1, 73));
 		datas.setFont(new Font("Bahnschrift", Font.PLAIN, 15));
 		datas.setBackground(new Color(230, 230, 250));
-		datas.setModel(new DefaultComboBoxModel<String>(data));
+		datas.setModel(new DefaultComboBoxModel<String>(lista.getDatas().toArray(new String[0])));
 		datasPainel.add(datas);
+		
+		JLabel horario = new JLabel("Horarios:");
+		horario.setForeground(new Color(230, 230, 250));
+		horario.setFont(new Font("Bahnschrift", Font.PLAIN, 16));
+		datasPainel.add(horario);
+		
+		Horarios = new JComboBox<String>();
+		Horarios.setForeground(new Color(13, 1, 73));
+		Horarios.setFont(new Font("Bahnschrift", Font.PLAIN, 15));
+		Horarios.setBackground(new Color(230, 230, 250));
+		Horarios.setModel(new DefaultComboBoxModel<String>(lista.getHorarios().toArray(new String[0])));
+		datasPainel.add(Horarios);
 		
 		//Panel com os Filmes disponíveis na data
 		JPanel catalogo = new JPanel();
@@ -106,7 +131,7 @@ public class Entrada extends JFrame implements ActionListener{
 		
 		//Paineis com informações do filme
 		JLabel tituloFilme1 = new JLabel();
-		tituloFilme1.setText(film1.getTitulo());
+		tituloFilme1.setText(filmes.get(0).getTitulo());
 		tituloFilme1.setHorizontalAlignment(SwingConstants.TRAILING);
 		tituloFilme1.setVerticalAlignment(SwingConstants.TOP);
 		tituloFilme1.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -121,7 +146,7 @@ public class Entrada extends JFrame implements ActionListener{
 		filme.add(duracao1Panel);
 		
 		JLabel duracao1 = new JLabel();
-		duracao1.setText(film1.getDuracao());
+		duracao1.setText(filmes.get(0).getDuracao());
 		duracao1.setForeground(new Color(240, 248, 255));
 		duracao1.setFont(new Font("Bahnschrift", Font.PLAIN, 13));
 		duracao1Panel.add(duracao1);
@@ -155,7 +180,7 @@ public class Entrada extends JFrame implements ActionListener{
 		
 		//Paineis com informações do filme
 		JLabel tituloFilme2 = new JLabel();
-		tituloFilme2.setText(film2.getTitulo());
+		tituloFilme2.setText(filmes.get(1).getTitulo());
 		tituloFilme2.setAlignmentX(Component.CENTER_ALIGNMENT);
 		tituloFilme2.setForeground(new Color(230, 230, 250));
 		tituloFilme2.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 18));
@@ -167,7 +192,7 @@ public class Entrada extends JFrame implements ActionListener{
 		filme2.add(duracao2Painel);
 		
 		JLabel duracao2 = new JLabel();
-		duracao2.setText(film2.getDuracao());
+		duracao2.setText(filmes.get(1).getDuracao());
 		duracao2.setFont(new Font("Bahnschrift", Font.PLAIN, 13));
 		duracao2.setForeground(new Color(240, 248, 255));
 		duracao2.setAlignmentX(0.5f);
@@ -205,7 +230,7 @@ public class Entrada extends JFrame implements ActionListener{
 		
 		//Paineis com informações do filme
 		JLabel tituloFilme3 = new JLabel("Dice");
-		tituloFilme3.setText(film3.getTitulo());
+		tituloFilme3.setText(filmes.get(2).getTitulo());
 		tituloFilme3.setAlignmentX(Component.CENTER_ALIGNMENT);
 		tituloFilme3.setForeground(new Color(230, 230, 250));
 		tituloFilme3.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 18));
@@ -217,7 +242,7 @@ public class Entrada extends JFrame implements ActionListener{
 		filme3.add(duracao3Painel);
 		
 		JLabel duracao3 = new JLabel();
-		duracao3.setText(film3.getDuracao());
+		duracao3.setText(filmes.get(2).getDuracao());
 		duracao3.setForeground(new Color(240, 248, 255));
 		duracao3.setFont(new Font("Bahnschrift", Font.PLAIN, 13));
 		duracao3.setAlignmentX(0.5f);
@@ -229,7 +254,7 @@ public class Entrada extends JFrame implements ActionListener{
 		btnIngresso3.setFont(new Font("Bahnschrift", Font.PLAIN, 11));
 		btnIngresso3.setBackground(new Color(230, 230, 250));
 		btnIngresso3.setAlignmentX(0.5f);
-		btnIngresso2.addActionListener(this::sel3);
+		btnIngresso3.addActionListener(this::sel3);
 		filme3.add(btnIngresso3);
 		
 		JLabel lblNewLabel = new JLabel("SuperCine");
@@ -243,19 +268,19 @@ public class Entrada extends JFrame implements ActionListener{
 	}
 
 	public void sel1(ActionEvent event) {
+		selected = lista.selecionada(filmes.get(0),(String)datas.getSelectedItem(), (String)Horarios.getSelectedItem());
 		setVisible(false);
-		String[] aaaaa = {"a", "canario", "tio"};
-		new Selecao(aaaaa,film1,(String)datas.getSelectedItem());
+		new Selecao(listaSessoes, selected);
 	}
 	public void sel2(ActionEvent event) {
+		selected = lista.selecionada(filmes.get(1),(String)datas.getSelectedItem(), (String)Horarios.getSelectedItem());
 		setVisible(false);
-		String[] aaaaa = {"a", "canario", "tio"};
-		new Selecao(aaaaa,film2,(String)datas.getSelectedItem());
+		new Selecao(listaSessoes, selected);
 	}
 	public void sel3(ActionEvent event) {
+		selected = lista.selecionada(filmes.get(2),(String)datas.getSelectedItem(), (String)Horarios.getSelectedItem());
 		setVisible(false);
-		String[] aaaaa = {"a", "canario", "tio"};
-		new Selecao(aaaaa,film2,(String)datas.getSelectedItem());
+		new Selecao(listaSessoes, selected);
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {

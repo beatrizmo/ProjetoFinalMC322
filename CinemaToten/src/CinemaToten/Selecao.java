@@ -412,7 +412,7 @@ public class Selecao extends JFrame implements ActionListener{
 		total = meiaSel.getSelectedIndex()+ inteiraSel.getSelectedIndex();
 		preco = meiaSel.getSelectedIndex()*10+ inteiraSel.getSelectedIndex()*20;
 		qtdIngressos.setText("Quantidade de ingressos: " + total);
-		precoFinal.setText("Preço total: "+ preco);
+		precoFinal.setText("Preço total: R$"+ preco);
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -422,13 +422,16 @@ public class Selecao extends JFrame implements ActionListener{
 
 	//Permite selecionar um assento e fazer a reserva
 	public void lugarSelecionado(JButton lugar, String posicao){
+
 		if (lugar.getBackground() == verde) {
+
 			lugar.setBackground(roxo);
 			lugares.remove(posicao);
 			sel--;
-		} 
-		if (total==sel) {
-			JOptionPane.showMessageDialog(null,"Selecione primeiro o tipo de ingresso e depois o lugar.");
+			return;
+		}
+		if (total<=sel) {
+			JOptionPane.showMessageDialog(null,"Ingressos comprados insuficientes!\nAdquira mais ingressos ou finalize sua compra.");
 			return;
 		} else if (lugar.getBackground() == vermelho) {
 			JOptionPane.showMessageDialog(null,"Esse lugar já está reservado.");
@@ -451,13 +454,16 @@ public class Selecao extends JFrame implements ActionListener{
 	
 	//Finaliza a compra solicitando o nome do usuario
 	public void finalizarCompra() {
-
+		if (sel > total) {
+			JOptionPane.showMessageDialog(null,"Adquira mais ingressos ou remova algum assento!");
+			return;
+		}
 		if(total <= 0) {
 			JOptionPane.showMessageDialog(null,"Selecione ao menos 1 assento");
 			return;
 			
 		}
-		else if (sel != total) {
+		else if (sel <= total) {
 			JOptionPane.showMessageDialog(null,"Termine de selecionar os assentos ou reduza o número de ingressos.");
 			return;
 		}

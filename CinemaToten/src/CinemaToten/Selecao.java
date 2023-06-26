@@ -28,23 +28,26 @@ import javax.swing.JTextField;
 
 public class Selecao extends JFrame implements ActionListener{
 	
+	//cores básicas do projeto
 	static Color roxo=new Color(171,96,237);
 	static Color fundo=new Color(13, 1, 73);
 	static Color vermelho=new Color(248,86,70);
 	static Color verde=new Color(157,205,90);
-	JLabel qtdIngressos;
-	JLabel precoFinal;
+	
+	JLabel qtdIngressos, precoFinal;
 	String dia, hora;
 	Filme filme;
 	JPanel mapa;
 	static Sessao sessao;
 	int total=0,sel=0, preco = 0;
-	static Reservar reservas = new Reservar("AssentosReservados.csv");
+	
 	JComboBox<String> meiaSel, inteiraSel;
 	ArrayList<Sessao> lista;
 	ArrayList<String> lugares = new ArrayList<>();
-	private static final long serialVersionUID = 1L;
 	private JTextField txtDigiteSeuNome;
+	
+	static Reservar reservas = new Reservar("AssentosReservados.csv");
+	private static final long serialVersionUID = 1L;
 	
 	public Selecao(ArrayList<Sessao> lista,Sessao sessao) {
 		this.hora = sessao.getHorario();
@@ -139,16 +142,26 @@ public class Selecao extends JFrame implements ActionListener{
         getContentPane().add(reserva);
 		
         JPanel assentos = new JPanel();
-        assentos.setBorder(new EmptyBorder(20, 60, 20, 60));
+        assentos.setBorder(new EmptyBorder(5, 60, 20, 60));
         assentos.setBackground(fundo);
         reserva.add(assentos);
         assentos.setLayout(new BorderLayout());
 		
         //Mapa de Assentos
+        JPanel sala = new JPanel();
+        sala.setBorder(new EmptyBorder(15, 0, 0, 0));
+        sala.setBackground(new Color(13, 1, 73));
+		assentos.add(sala, BorderLayout.CENTER);
+		sala.setLayout(new BoxLayout(sala, BoxLayout.Y_AXIS));
+        
+        JLabel lblNewLabel = new JLabel("Tela ");
+        lblNewLabel.setForeground(new Color(230, 230, 250));
+        lblNewLabel.setFont(new Font("Bahnschrift", Font.PLAIN, 18));
+        sala.add(lblNewLabel);
         mapa = new JPanel();
         mapa.setBorder(new EmptyBorder(20, 30, 20, 30));
         mapa.setBackground(fundo);
-        assentos.add(mapa, BorderLayout.CENTER);
+        sala.add(mapa);
         mapa.setLayout(new GridLayout(6, 8, 10, 10));
         
         //Assentos
@@ -253,6 +266,7 @@ public class Selecao extends JFrame implements ActionListener{
         
 	    //Legenda das cores dos assentos
         JLabel legenda = new JLabel("Verde - Selecionado, Roxo -Livre, Vermelho - Reservado");
+        legenda.setHorizontalAlignment(SwingConstants.LEFT);
         legenda.setForeground(new Color(230, 230, 250));
         legenda.setFont(new Font("Bahnschrift", Font.PLAIN, 15));
         assentos.add(legenda, BorderLayout.SOUTH);
@@ -374,13 +388,16 @@ public class Selecao extends JFrame implements ActionListener{
 		finalizar.setBackground(new Color(54, 26, 115));
 		finalizar.setBorder(new EmptyBorder(4, 4, 4, 4));
 		finalizarPanel.add(finalizar);
+		
+		
 		finalizar.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		        finalizarCompra();
 		    }
 		});
 	}
-
+	
+	//configura todos os assentos e colore eles de acordo com a disponibilidade
 	private static void configurar(Container container) {
         Component[] components = container.getComponents();
         for (Component component : components) {

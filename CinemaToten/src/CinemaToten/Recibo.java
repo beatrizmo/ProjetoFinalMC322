@@ -111,11 +111,11 @@ public class Recibo {
         return null;
     }
 	//Recibo em forma de imagem
-	public void toImg(){
+	public String toImg(){
 		String buyId = this.generateMD5Hash(this.toString());
 		String text = toString() + "\nID da compra: " + buyId;
-		int imageWidth = 600; // Largura da imagem
-		int imageHeight = 900; // Altura da imagem
+		int imageWidth = 450; // Largura da imagem
+		int imageHeight = 300; // Altura da imagem
 
 		// Cria uma nova imagem com o tamanho especificado
 		BufferedImage image = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_ARGB);
@@ -150,10 +150,10 @@ public class Recibo {
 		File output = new File("Ingresso"+buyId+".png");
 		try {
 			ImageIO.write(image, "PNG", output);
-			System.out.println("Imagem salva com sucesso!");
 		} catch (IOException e) {
-			System.out.println("Erro ao salvar a imagem: " + e.getMessage());
+			System.out.println(e.getMessage());
 		}
+		return "Ingresso"+buyId+".png";
 	}
 
 }

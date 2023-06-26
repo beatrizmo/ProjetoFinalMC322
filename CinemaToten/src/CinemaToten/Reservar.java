@@ -61,7 +61,23 @@ public class Reservar implements I_Arquivo {
 		
 		//Cria um arquivo imagem contendo os dados dos  ingressos e valor total pago 
 		Recibo recibo = new Recibo(precoFinal, sessao.getData(), sessao.getHorario(), sessao.getFilme().getTitulo(), nome,posicoesAssento);
-		recibo.toImg();		
+		String nomeArquivo = recibo.toImg();	
+		try {
+		    String os = System.getProperty("os.name").toLowerCase();
+		    ProcessBuilder pb;
+
+		    if (os.contains("win")) {
+		        pb = new ProcessBuilder("explorer", nomeArquivo);
+		    } else if (os.contains("nix") || os.contains("nux") || os.contains("mac")) {
+		        pb = new ProcessBuilder("xdg-open", nomeArquivo);
+		    } else {
+		        throw new UnsupportedOperationException("Sistema operacional não suportado.");
+		    }
+
+		    pb.start();
+		} catch (IOException e) {
+		    System.out.println("Erro ao abrir a imagem: " + e.getMessage());
+		}
 		return precoFinal;
 	}
 

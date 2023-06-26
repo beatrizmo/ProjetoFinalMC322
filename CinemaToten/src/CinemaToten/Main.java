@@ -75,7 +75,6 @@ public class Main {
 					//Instancia um objeto do tipo filme para cada filme da lista de filmes
 					Filme filme = new Filme(titulo, sinopse, duracao);
 					listaFilmes.add(filme);
-					//System.out.println(filme.toString());
 
 				}
 			}
@@ -94,7 +93,6 @@ public class Main {
 		try {
 			listaFilmes = criarCatalogo(caminhoArquivo);
 		} catch (CsvValidationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		//criacao das sessoes

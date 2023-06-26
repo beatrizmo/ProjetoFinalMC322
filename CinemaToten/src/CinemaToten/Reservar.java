@@ -31,7 +31,7 @@ public class Reservar implements I_Arquivo {
 		ArrayList<Ingresso> listaIngressos= new ArrayList<>();
 		double precoFinal = 0;
 		
-		//antes de gravar no arquivo, verifica-se se todos os assentos estão disponíveis
+		//Antes de gravar no arquivo, verifica-se se todos os assentos estão disponíveis
 		for (String posAssento : posicoesAssento) { 
 			String chave = sessao.getFilme().getTitulo() + "," + sessao.getData() + "," + sessao.getHorario() + "," + posAssento;			
 			if (verificarDadoExistente(chave)) {

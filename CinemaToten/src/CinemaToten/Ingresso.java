@@ -43,7 +43,8 @@ public abstract class Ingresso {
         this.nomeCliente = nomeCliente;
     }
     
-    public String retornarChave() { //chave que será gravada no arquivo .csv
+    // Retorna uma string(chave) com a sessao e assento selecionados  que serao gravados no arquivo .csv
+    public String retornarChave() { 
     	return sessao.getFilme().getTitulo() + "," + sessao.getData() + "," + sessao.getHorario() + "," + assento;
     }
 

@@ -56,13 +56,13 @@ public class Recibo {
 		this.titulo = titulo;
 	}
 
-	//método to String
+	//Método to String
 	public String toString(){
 		String texto = new String("\n-----Recibo-----\nTitulo do filme: "+titulo+"\nDia: "+data+ "   Hora: "+hora+"\nAssentos:"+assentos+"\nPreço total: "+precoFinal);
 		return texto;
 	}
 
-	//public void recibo em forma de imagem
+	//Recibo em forma de imagem
 	public void toImg(){
 		String text = toString();
 		int imageWidth = 600; // Largura da imagem

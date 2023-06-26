@@ -107,8 +107,7 @@ public class Entrada extends JFrame implements ActionListener{
 		catalogo.setBackground(new Color(13, 1, 73));
 		((FlowLayout) catalogo.getLayout()).setHgap(20);
 		
-		
-		
+
 		//Painel com o primeiro filme
 		JPanel filme = new JPanel();
 		filme.setBorder(new EmptyBorder(20, 8, 20, 8));
@@ -151,7 +150,7 @@ public class Entrada extends JFrame implements ActionListener{
 		duracao1.setFont(new Font("Bahnschrift", Font.PLAIN, 13));
 		duracao1Panel.add(duracao1);
 		
-		//botão do filme 1
+		//Botão do filme 1
 		JButton btnIngresso1 = new JButton("Compre seu ingresso");
 		btnIngresso1.addActionListener(this::sel1);
 		btnIngresso1.setFont(new Font("Bahnschrift", Font.PLAIN, 11));
@@ -199,7 +198,7 @@ public class Entrada extends JFrame implements ActionListener{
 		duracao2Painel.add(duracao2);
 		filme2.setLayout(new BoxLayout(filme2, BoxLayout.Y_AXIS));
 		
-		//botão do filme 2
+		//Botão do filme 2
 		JButton btnIngresso2 = new JButton("Compre seu ingresso");
 		btnIngresso2.setForeground(new Color(13, 1, 73));
 		btnIngresso2.setFont(new Font("Bahnschrift", Font.PLAIN, 11));
@@ -216,7 +215,7 @@ public class Entrada extends JFrame implements ActionListener{
 		catalogo.add(filme3);
 		filme3.setLayout(new BoxLayout(filme3, BoxLayout.Y_AXIS));
 		
-		//painel com a capa do filme 3
+		//Painel com a capa do filme 3
 		JPanel capaFilme3 = new JPanel();
 		capaFilme3.setBorder(new EmptyBorder(0, 0, 5, 0));
 		capaFilme3.setBackground(new Color(54, 26, 115));
@@ -248,7 +247,7 @@ public class Entrada extends JFrame implements ActionListener{
 		duracao3.setAlignmentX(0.5f);
 		duracao3Painel.add(duracao3);
 		
-		//botão do filme 3
+		//Botão do filme 3
 		JButton btnIngresso3 = new JButton("Compre seu ingresso");
 		btnIngresso3.setForeground(new Color(13, 1, 73));
 		btnIngresso3.setFont(new Font("Bahnschrift", Font.PLAIN, 11));
@@ -267,16 +266,21 @@ public class Entrada extends JFrame implements ActionListener{
 
 	}
 
+	//Guardas a informacoes selecionadas por meio do botao 1 em uma variavel 
 	public void sel1(ActionEvent event) {
 		selected = lista.selecionada(filmes.get(0),(String)datas.getSelectedItem(), (String)Horarios.getSelectedItem());
 		setVisible(false);
 		new Selecao(listaSessoes, selected);
 	}
+
+	//Guardas a informacoes selecionadas por meio do botao 2 em uma variavel 
 	public void sel2(ActionEvent event) {
 		selected = lista.selecionada(filmes.get(1),(String)datas.getSelectedItem(), (String)Horarios.getSelectedItem());
 		setVisible(false);
 		new Selecao(listaSessoes, selected);
 	}
+
+	//Guardas a informacoes selecionadas por meio do botao 3 em uma variavel 
 	public void sel3(ActionEvent event) {
 		selected = lista.selecionada(filmes.get(2),(String)datas.getSelectedItem(), (String)Horarios.getSelectedItem());
 		setVisible(false);

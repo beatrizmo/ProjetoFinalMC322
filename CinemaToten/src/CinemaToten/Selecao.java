@@ -393,10 +393,13 @@ public class Selecao extends JFrame implements ActionListener{
         }
     }
 	
+	//Permite voltar para a tela inicial
 	public void voltar(ActionEvent event) {
 		dispose();
 		new Entrada(lista);
 	}
+
+	//Atualiza a quantidade de ingressos e o preço final
 	public void atualizar(ActionEvent e) {
 		total = meiaSel.getSelectedIndex()+ inteiraSel.getSelectedIndex();
 		preco = meiaSel.getSelectedIndex()*10+ inteiraSel.getSelectedIndex()*20;
@@ -408,6 +411,8 @@ public class Selecao extends JFrame implements ActionListener{
 		// TODO Auto-generated method stub
 		
 	}
+
+	//Permite selecionar um assento e fazer a reserva
 	public void lugarSelecionado(JButton lugar, String posicao){
 		if (lugar.getBackground() == verde) {
 			lugar.setBackground(roxo);
@@ -436,6 +441,7 @@ public class Selecao extends JFrame implements ActionListener{
 		return;
 	}
 	
+	//Finaliza a compra solicitando o nome do usuario
 	public void finalizarCompra() {
 		if (sel != total) {
 			JOptionPane.showMessageDialog(null,"Termine de selecionar os assentos ou reduza o número de ingressos.");

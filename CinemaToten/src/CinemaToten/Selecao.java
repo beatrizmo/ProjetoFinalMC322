@@ -463,7 +463,7 @@ public class Selecao extends JFrame implements ActionListener{
 			return;
 			
 		}
-		else if (sel <= total) {
+		else if (sel < total) {
 			JOptionPane.showMessageDialog(null,"Termine de selecionar os assentos ou reduza o número de ingressos.");
 			return;
 		}
@@ -479,6 +479,8 @@ public class Selecao extends JFrame implements ActionListener{
 			new Entrada(lista);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null,e.getMessage());
+			new Selecao(this.lista, Selecao.sessao);
+			dispose();
 			
 		}
 		return;

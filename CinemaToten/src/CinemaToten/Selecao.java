@@ -52,8 +52,6 @@ public class Selecao extends JFrame implements ActionListener{
 		this.dia = sessao.getData();
 		this.lista = lista;
 		Selecao.sessao = sessao;
-		
-		
 		setVisible(true);
 		
 		//Definições iniciais da tela
@@ -240,7 +238,7 @@ public class Selecao extends JFrame implements ActionListener{
         F2.addActionListener((ActionEvent e) -> {lugarSelecionado(F2,"F2");});
         JButton F3 = new JButton("F3"); mapa.add(F3);
         F3.addActionListener((ActionEvent e) -> {lugarSelecionado(F3,"F3");});
-        JButton F4 = new JButton("F4"); mapa.add(F4);
+        JButton F4 = new JButton("F4"); mapa.add(F4);	
         F4.addActionListener((ActionEvent e) -> {lugarSelecionado(F4,"F4");});
         JButton F5 = new JButton("F5"); mapa.add(F5);
         F5.addActionListener((ActionEvent e) -> {lugarSelecionado(F5,"F5");});
@@ -353,12 +351,17 @@ public class Selecao extends JFrame implements ActionListener{
 		flowLayout.setAlignment(FlowLayout.LEFT);
 		dadosFinaisPanel.add(panel);
 		
+		JLabel lblNome = new JLabel("Nome:");
+		lblNome.setFont(new Font("Bahnschrift", Font.PLAIN, 14));
+		lblNome.setForeground(new Color(230, 230, 250));
+		panel.add(lblNome);
+		
 		txtDigiteSeuNome = new JTextField();
 		panel.add(txtDigiteSeuNome);
 		txtDigiteSeuNome.setForeground(new Color(0, 0, 160));
 		txtDigiteSeuNome.setFont(new Font("Bahnschrift", Font.PLAIN, 14));
-		txtDigiteSeuNome.setText("Digite seu nome");
 		txtDigiteSeuNome.setColumns(10);
+		
 		
 		//Painel e botão de finalizar compra
 		JPanel finalizarPanel = new JPanel();
@@ -371,6 +374,11 @@ public class Selecao extends JFrame implements ActionListener{
 		finalizar.setBackground(new Color(54, 26, 115));
 		finalizar.setBorder(new EmptyBorder(4, 4, 4, 4));
 		finalizarPanel.add(finalizar);
+		finalizar.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        finalizarCompra();
+		    }
+		});
 	}
 
 	private static void configurar(Container container) {
@@ -443,21 +451,29 @@ public class Selecao extends JFrame implements ActionListener{
 	
 	//Finaliza a compra solicitando o nome do usuario
 	public void finalizarCompra() {
-		if (sel != total) {
+
+		if(total <= 0) {
+			JOptionPane.showMessageDialog(null,"Selecione ao menos 1 assento");
+			return;
+			
+		}
+		else if (sel != total) {
 			JOptionPane.showMessageDialog(null,"Termine de selecionar os assentos ou reduza o número de ingressos.");
 			return;
 		}
-		if (txtDigiteSeuNome.getText()==null) {
+		if (txtDigiteSeuNome.getText().isBlank()) {
 			JOptionPane.showMessageDialog(null,"Digite seu nome antes de encerrar.");
 			return;
 		}
 		try {
 			double precoFinal = reservas.comprarAssentos(meiaSel.getSelectedIndex(), inteiraSel.getSelectedIndex(), txtDigiteSeuNome.getText(), lugares, sessao);
 			preco = (int)precoFinal;
+			JOptionPane.showMessageDialog(null,"Compra efetuada com sucesso!\nAproveite a sessão!");
 			dispose();
+			new Entrada(lista);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,e.getMessage());
+			
 		}
 		return;
 	}

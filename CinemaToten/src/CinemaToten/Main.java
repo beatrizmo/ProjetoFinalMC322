@@ -9,7 +9,7 @@ import java.util.Scanner;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 
-public class MainTeste {
+public class Main {
 	
 	public static void createCSVFile() {
 		
@@ -49,13 +49,13 @@ public class MainTeste {
 		}
 	}
 
-	
+	/*
 	//Exibe os filmes disponiveis para a selecao e encaminha para a escolha de sessao
-	public static void escolherFilme(Scanner scanner, ArrayList<Filme> listaFilmes,ArrayList<Sessao> listaSessoes, Reservar reserva) throws IOException {
+	public static void escolherFilme(ArrayList<Filme> listaFilmes,ArrayList<Sessao> listaSessoes, Reservar reserva) throws IOException {
 		int filmeIndex;
 		boolean filmeValido = false;
 		Filme filmeEscolhido = null;
-		new Entrada(listaSessoes);
+		
 		
 		listarFilmes(listaFilmes);
 		System.out.println("0. Voltar para o menu inicial");
@@ -85,7 +85,7 @@ public class MainTeste {
 	}
 	
 	//Escolher sessao com base no filme selecionado
-	public static void escolherSessao(Scanner scanner, ArrayList<Sessao> listaSessoes, Filme filme, Reservar reserva) throws IOException {
+	public static void escolherSessao(ArrayList<Sessao> listaSessoes, Filme filme, Reservar reserva) throws IOException {
 		int escolha;
 		
 		ArrayList<Sessao> sessoesDisp = new ArrayList<>();
@@ -113,7 +113,7 @@ public class MainTeste {
 	}
 	
 	//Escolhe um assento para uma sessao passada como parametro
-	public static void escolherAssentos(Scanner scanner, Sessao sessao, Reservar reserva) throws IOException {
+	public static void escolherAssentos(Sessao sessao, Reservar reserva) throws IOException {
 		
 		System.out.print("Digite o numero de ingressos meia-entrada você quer comprar: ");
 		int qntMeias = scanner.nextInt();
@@ -150,7 +150,7 @@ public class MainTeste {
 	    realizarCompra(qntMeias, qntInteiras, scanner, reserva, listaAssentos, sessao);
 	}
 
-	
+	*/
 	
 	//Apos escolhido a sessao e o assento é feito a compra
 	
@@ -172,34 +172,6 @@ public class MainTeste {
 	    else {
 	    	System.out.println("Compra cancelada.");
 	    }
-	}
-
-	//Menu de selecao exibido ao executar o programa
-	public static void mostrarMenu(ArrayList<Sessao> listaSessoes, ArrayList<Filme> listaFilmes, Reservar reserva) throws IOException {
-		Scanner scanner = new Scanner(System.in);
-		int escolha;
-
-		do {
-			System.out.println("\n----- Menu -----");
-			System.out.println("1. Escolher um filme");
-			System.out.println("2. Sair");
-
-			System.out.print("Entre com sua escolha: ");
-			escolha = scanner.nextInt();
-
-			switch (escolha) {
-			case 1:
-				escolherFilme(scanner, listaFilmes, listaSessoes, reserva);
-				break;
-			case 2:
-				System.out.println("Saindo...");
-				break;
-			default:
-				System.out.println("Escolha invalida. Tente novamente.");
-			}
-		} while (escolha != 2);
-
-		scanner.close();
 	}
 
 	public static void main(String[] args) throws CsvValidationException {
@@ -261,12 +233,7 @@ public class MainTeste {
 
 		
 		Reservar reserva = new Reservar("AssentosReservados.csv");
-		try {
-			mostrarMenu(listaSessoes, listaFilmes, reserva);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		new Entrada(listaSessoes);
 
 	}
 

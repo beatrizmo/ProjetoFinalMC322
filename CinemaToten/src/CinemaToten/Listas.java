@@ -48,7 +48,7 @@ public class Listas {
 		for (Sessao sessao:listaSessoes) {
 			if (dia == sessao.getData()) {
 				if (filme == sessao.getFilme()) {
-					if (filme == sessao.getFilme()) {
+					if (horario == sessao.getHorario()) {
 						selecionada = sessao;
 					}
 				}

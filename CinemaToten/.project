@@ -14,23 +14,6 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>src/CinemaToten/Indiana.png</name>
-			<type>1</type>
-			<location>C:/Users/Alexia/Downloads/Indiana.png</location>
-		</link>
-		<link>
-			<name>src/CinemaToten/LadyBird.png</name>
-			<type>1</type>
-			<location>C:/Users/Alexia/Downloads/LadyBird.png</location>
-		</link>
-		<link>
-			<name>src/CinemaToten/Meninas.png</name>
-			<type>1</type>
-			<location>C:/Users/Alexia/Downloads/Meninas.png</location>
-		</link>
-	</linkedResources>
 	<filteredResources>
 		<filter>
 			<id>1686428104200</id>

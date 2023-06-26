@@ -4,6 +4,10 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.text.DecimalFormat;
 
 import javax.imageio.ImageIO;
 import java.util.ArrayList;
@@ -13,15 +17,24 @@ import java.util.ArrayList;
 
 public class Recibo {
 	double precoFinal;
-	String data, hora, titulo;
+	String data, hora, titulo,nome;
 	ArrayList<String> assentos;
 
-	public Recibo(double preco, String data, String hora, String titulo, ArrayList<String> assentos){
+	public Recibo(double preco, String data, String hora, String titulo, String nome, ArrayList<String> assentos){
 		this.precoFinal = preco;
 		this.assentos = assentos;
 		this.data = data;
 		this.hora = hora;
 		this.titulo = titulo;
+		this.nome = nome;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	//getters e setters
@@ -58,13 +71,49 @@ public class Recibo {
 
 	//Método to String
 	public String toString(){
-		String texto = new String("\n-----Recibo-----\nTitulo do filme: "+titulo+"\nDia: "+data+ "   Hora: "+hora+"\nAssentos:"+assentos+"\nPreço total: "+precoFinal);
+		DecimalFormat decimalFormat = new DecimalFormat("0.00");
+		String precoFinalFormatado = decimalFormat.format(precoFinal);
+
+		String texto = "\n-----Recibo-----\n" +
+		               "Cliente: " + this.nome + "\n" +
+		               "Titulo do filme: " + titulo + "\n" +
+		               "Dia: " + data + "   Hora: " + hora + "\n" +
+		               "Assentos: " + assentos + "\n" +
+		               "Preço total: R$" + precoFinalFormatado;
 		return texto;
 	}
-
+	public String generateMD5Hash(String input) {
+        try {
+            // Cria uma instância do algoritmo de hash MD5
+            MessageDigest digest = MessageDigest.getInstance("MD5");
+            
+            // Obtém os bytes da string de entrada
+            byte[] inputBytes = input.getBytes();
+            
+            // Calcula o hash dos bytes da string de entrada
+            byte[] hashBytes = digest.digest(inputBytes);
+            
+            // Converte os bytes do hash em uma representação hexadecimal
+            String hashHex = new BigInteger(1, hashBytes).toString(16);
+            
+            // Preenche com zeros à esquerda, se necessário, para obter 32 caracteres
+            while (hashHex.length() < 32) {
+                hashHex = "0" + hashHex;
+            }
+            
+            // Obtém os primeiros 6 caracteres do hash
+            String truncatedHash = hashHex.substring(0, 6);
+            
+            return truncatedHash;
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 	//Recibo em forma de imagem
 	public void toImg(){
-		String text = toString();
+		String buyId = this.generateMD5Hash(this.toString());
+		String text = toString() + "\nID da compra: " + buyId;
 		int imageWidth = 600; // Largura da imagem
 		int imageHeight = 900; // Altura da imagem
 
@@ -98,7 +147,7 @@ public class Recibo {
 		g2d.dispose();
 
 		// Salva a imagem em um arquivo PNG
-		File output = new File("output.png");
+		File output = new File("Ingresso"+buyId+".png");
 		try {
 			ImageIO.write(image, "PNG", output);
 			System.out.println("Imagem salva com sucesso!");

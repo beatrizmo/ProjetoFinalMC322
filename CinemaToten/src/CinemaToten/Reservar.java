@@ -60,7 +60,7 @@ public class Reservar implements I_Arquivo {
 		}
 		
 		//Cria um arquivo imagem contendo os dados dos  ingressos e valor total pago 
-		Recibo recibo = new Recibo(precoFinal, sessao.getData(), sessao.getHorario(), sessao.getFilme().getTitulo(), posicoesAssento);
+		Recibo recibo = new Recibo(precoFinal, sessao.getData(), sessao.getHorario(), sessao.getFilme().getTitulo(), nome,posicoesAssento);
 		recibo.toImg();		
 		return precoFinal;
 	}

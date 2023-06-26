@@ -134,7 +134,7 @@ public class Entrada extends JFrame implements ActionListener{
 		filme.add(capaFilme1);
 
 		JLabel capa1 = new JLabel("");
-		ImageIcon imageIcon1 = rescaleImage("src/CinemaToten/LadyBird.png", width, height);
+		ImageIcon imageIcon1 = rescaleImage(filmes.get(0).caminhoPoster, width, height);
 		Image image1 = imageIcon1.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
 		capa1.setIcon(new ImageIcon(image1));
 		capa1.setAlignmentX(0.5f);
@@ -188,7 +188,7 @@ public class Entrada extends JFrame implements ActionListener{
 		filme2.add(capaFilme2);
 
 		JLabel capa2 = new JLabel("");
-		ImageIcon imageIcon2 = rescaleImage("src/CinemaToten/Meninas.png", width, height);
+		ImageIcon imageIcon2 = rescaleImage(filmes.get(1).caminhoPoster, width, height);
 		Image image2 = imageIcon2.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
 		capa2.setIcon(new ImageIcon(image2));
 		capa2.setAlignmentX(0.5f);
@@ -243,7 +243,7 @@ public class Entrada extends JFrame implements ActionListener{
 
 
 		JLabel capa3 = new JLabel("");
-		ImageIcon imageIcon3 = rescaleImage("src/CinemaToten/Indiana.png", width, height);
+		ImageIcon imageIcon3 = rescaleImage(filmes.get(2).caminhoPoster, width, height);
 		Image image3 = imageIcon3.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
 		capa3.setIcon(new ImageIcon(image3));
 		capa3.setAlignmentX(0.5f);

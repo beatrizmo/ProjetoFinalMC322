@@ -1,12 +1,10 @@
 package CinemaToten;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-
-import com.opencsv.CSVReader;
-import com.opencsv.exceptions.CsvValidationException;
 
 public class Main {
 
@@ -27,6 +25,38 @@ public class Main {
 			}
 		}
 	}
+	
+	public static ArrayList<Filme> criarCatalogo(String nomeArquivo) {
+        ArrayList<Filme> listaFilmes = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(nomeArquivo))) {
+            String linha;
+            boolean primeiraLinha = true;
+
+            while ((linha = br.readLine()) != null) {
+                if (primeiraLinha) {  // Ignora o cabeçalho do arquivo CSV
+                    primeiraLinha = false;
+                    continue;
+                }
+
+                String[] campos = linha.split(";");
+
+                String tituloAspas = campos[0].trim();
+                String titulo = tituloAspas.replace("\"", "");
+                String sinopse = campos[1].trim();
+                String duracao = campos[2].trim();
+                String caminhoPoster = campos[3].trim();
+                String textoSemAspas = caminhoPoster.replace("\"", "");
+
+                Filme filme = new Filme(titulo, sinopse, duracao, textoSemAspas);
+                listaFilmes.add(filme);
+            }
+        } catch (IOException e) {
+            System.out.println("Erro ao ler o arquivo CSV: " + e.getMessage());
+        }
+
+        return listaFilmes;
+    }
 
 	public static ArrayList<Sessao> criarSessoes(ArrayList<Filme> listaFilmes) {
 		ArrayList<String> listaDatas = new ArrayList<>();
@@ -52,37 +82,6 @@ public class Main {
 		return listaSessoes;
 
 	}
-
-	public static ArrayList<Filme> criarCatalogo(String caminhoArquivo) throws CsvValidationException{
-		ArrayList<Filme> listaFilmes = new ArrayList<>();
-		
-		try (CSVReader reader = new CSVReader(new FileReader(caminhoArquivo))) {
-			String[] linha;
-			boolean primeiraLinha = true;
-			while ((linha = reader.readNext()) != null) {
-
-				if (primeiraLinha) {
-					primeiraLinha = false;
-					continue; // Ignora a primeira linha do arquivo, que contem titulos 
-				}
-
-				// Verifica se a linha possui todos os campos necessários
-				if (linha.length >= 3) {
-					String titulo = linha[0];
-					String sinopse = linha[1];
-					String duracao = linha[2];
-
-					//Instancia um objeto do tipo filme para cada filme da lista de filmes
-					Filme filme = new Filme(titulo, sinopse, duracao);
-					listaFilmes.add(filme);
-
-				}
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return listaFilmes;
-	}
 	
 	public static void main(String[] args){
 		//criacao do arquivo que guarda a disponibilidade dos assentos
@@ -90,11 +89,7 @@ public class Main {
 		// Instancia lista de filmes
 		ArrayList<Filme> listaFilmes = new ArrayList<>();
 		String caminhoArquivo = "ListaFilmes.csv";
-		try {
-			listaFilmes = criarCatalogo(caminhoArquivo);
-		} catch (CsvValidationException e) {
-			e.printStackTrace();
-		}
+		listaFilmes = criarCatalogo(caminhoArquivo);
 		//criacao das sessoes
 		ArrayList<Sessao> listaSessoes = new ArrayList<>();
 		listaSessoes = criarSessoes(listaFilmes);

@@ -6,14 +6,24 @@ public class Filme {
     private String titulo;
     private String sinopse;
     private String duracao;
+    String caminhoPoster;
     
-    public Filme(String titulo, String sinopse, String duracao) {
+    public Filme(String titulo, String sinopse, String duracao, String caminhoPoster) {
         this.titulo = titulo;
         this.sinopse = sinopse;
         this.duracao = duracao;
+        this.caminhoPoster = caminhoPoster;
     }
     
-    // Getters e Setters
+    public String getCaminhoPoster() {
+		return caminhoPoster;
+	}
+
+	public void setCaminhoPoster(String caminhoPoster) {
+		this.caminhoPoster = caminhoPoster;
+	}
+
+	// Getters e Setters
     public String getTitulo() {
         return titulo;
     }

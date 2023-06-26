@@ -8,10 +8,10 @@ Projeto Final da disciplina de MC322 2023S01
 
 # Cinema Totem
 
-O Cinema Totem é um sistema de totem de compra de bilhetes de cinema que permite aos usuários comprar ingressos para filmes de forma conveniente. O projeto foi desenvolvido utilizando os princípios da POO e visa proporcionar aos clientes uma experiência intuitiva e fácil. Em nosso projeto, já na tela inicial é possivel visualizar os filmes disponiveis em cartaz, assim como os dias e os horários de exibição. Para cada filme temos as informações de título, sinopse e a duração. O cliente no momento da compra de ingresso após selecionar o filme, a data e horário que quer assistir terá a opção de selecionar a compra do ingresso no valor inteiro, ou como meia entrada. 
+O Cinema Totem é um sistema de totem de compra de bilhetes de cinema que permite aos usuários comprar ingressos para filmes de forma conveniente. O projeto foi desenvolvido utilizando os princípios da POO e visa proporcionar aos clientes uma experiência intuitiva e fácil. Em nosso projeto, já na tela inicial é possivel visualizar os filmes disponiveis em cartaz, assim como os dias e os horários de exibição. Para cada filme temos as informações de título, sinopse e a duração. O cliente, no momento da compra de ingresso ,após selecionar o filme, a data e horário que quer assistir, terá a opção de selecionar a compra do ingresso no valor inteiro, ou como meia entrada. Ao final é gerado um recebido no formato de imagem contendo as principais informações relevantes como: preço total, posição dos assentos, titulo do fille, e data e hora de exibição. 
 
 
-No desenvolvimento deste projeto foi explorado conceito de relacionamentos entre classes.Nesse projeto as classes que possuem uma relação de agregação são Ingresso, Sessao, Assento, Filme pois elas dependem uma da outra para funcionar.A classe Sessão possui uma relação de agregação com assentos, pois ela é composta por uma lista de assentos. A mesma coisa acontece com a classe Recibo. Além do conceito de classe abstrata, onde a classe Ingresso foi definida como uma classe abstrata que possui duas classes filhas: Ingresso Meia e Ingresso Inteira. A interface I_Arquivo também foi implementada para definir os metódos gravarArquivo e lerArquivo a serem implementados. 
+No desenvolvimento deste projeto foi explorado conceito de relacionamentos entre classes como agregação, associação e composição conforme ilustrado no diagrama UML. Além do conceito de classe abstrata, onde a classe Ingresso foi definida como uma classe abstrata que possui duas classes filhas: Ingresso Meia e Ingresso Inteira. A interface I_Arquivo também foi implementada para definir os metódos gravarArquivo e lerArquivo a serem implementados. 
 
 Os diagramas UML contendo mais detalhes da implementação pode ser visto abaixo:
 
@@ -25,6 +25,8 @@ Os diagramas UML contendo mais detalhes da implementação pode ser visto abaixo
 
 ## Configuração do Projeto
 
-1. Certifique-se de ter o Java Development Kit (JDK) instalado na sua máquina.
+1. Certifique-se de ter a versão Java 17.0 instalada na sua máquina.
 2. Clone este repositório para o seu ambiente local:
 3. Navegue até o diretório CinemaToten/src/CinemaToten e execute o arquivo Main.Java
+4. A IDE utlizada no desenvolvimento deste projeto foi a IDE Eclipse, então recomendamos o uso da mesma para uma
+execução correta do projeto. 

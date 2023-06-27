@@ -15,7 +15,7 @@ No desenvolvimento deste projeto foi explorado conceito de relacionamentos entre
 
 O diagrama de classes UML contendo mais detalhes da implementação pode ser visto abaixo:
 <p align="center">
-  <img width="780" alt="image" src="https://github.com/beatrizmo/ProjetoFinalMC322/assets/57416359/923f83b9-10ff-47cf-abc4-e5cbc8b86cd8">
+  <img width="792" alt="Captura de Tela 2023-06-26 às 22 16 34" src="https://github.com/beatrizmo/ProjetoFinalMC322/assets/57416359/3ec7240c-9c73-4746-bde1-15500af14c4b">
 </p>
 
 
